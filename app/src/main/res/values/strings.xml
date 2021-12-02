@@ -4,8 +4,18 @@
     <string name="pizzaSizeTextView">Pizza Size</string>
     <string name="additionalToppingsTextView">Additional Toppings</string>
     <string name="selectedToppingsTextView">Selected Toppings</string>
-    <string name="addTextView">Add</string>
-    <string name="removeTextView">Remove</string>
+    <string name="addButton">Add</string>
+    <string name="removeButton">Remove</string>
     <string name="priceTextView">Price $</string>
-    <string name="addToOrderTextView">Add To Order</string>
+    <string name="addToOrderButton">Add To Order</string>
+    <string name="phoneNumberTextView">Phone Number:</string>
+    <string name="orderTextView">Order:</string>
+    <string name="removeSelectedPizzaButton">Remove Selected Pizza</string>
+    <string name="subtotalTextView">Subtotal $:</string>
+    <string name="salesTaxTextView">Sales Tax $:</string>
+    <string name="orderTotalTextView">Order Total $:</string>
+    <string name="placeOrderButton">Place Order</string>
+    <string name="customerPhoneNumbersTextView">Customer Phone Numbers:</string>
+    <string name="cancelOrderTextView">Cancel Order</string>
+
 </resources>
