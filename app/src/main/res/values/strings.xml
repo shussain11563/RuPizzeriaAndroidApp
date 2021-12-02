@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">RUPizzeria</string>
+    <string name="chosenPizzaTextView">Chosen Pizza</string>
+    <string name="pizzaSizeTextView">Pizza Size</string>
+    <string name="additionalToppingsTextView">Additional Toppings</string>
+    <string name="selectedToppingsTextView">Selected Toppings</string>
+    <string name="addTextView">Add</string>
+    <string name="removeTextView">Remove</string>
+    <string name="priceTextView">Price $</string>
+    <string name="addToOrderTextView">Add To Order</string>
 </resources>
