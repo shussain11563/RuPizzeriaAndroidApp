@@ -26,52 +26,52 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="123dp"
-        android:layout_height="123dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="144dp"
-        android:layout_marginBottom="10dp"
-        android:contentDescription="Deluxe Pizza"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toTopOf="@+id/imageButton3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNumber"
-        app:srcCompat="@drawable/deluxepizza" />
+            android:id="@+id/imageButton2"
+            android:layout_width="123dp"
+            android:layout_height="123dp"
+            android:layout_marginStart="144dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="144dp"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="Deluxe Pizza"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toTopOf="@+id/imageButton3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phoneNumber"
+            app:srcCompat="@drawable/deluxepizza" android:onClick="openDeluxeCustomizePizzaActivity"/>
 
     <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="123dp"
-        android:layout_height="123dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="144dp"
-        android:layout_marginBottom="20dp"
-        android:contentDescription="Hawaiian Pizza"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toTopOf="@+id/imageButton4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
-        app:srcCompat="@drawable/deluxepizza" />
+            android:id="@+id/imageButton3"
+            android:layout_width="123dp"
+            android:layout_height="123dp"
+            android:layout_marginStart="144dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="144dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="Hawaiian Pizza"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toTopOf="@+id/imageButton4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton2"
+            app:srcCompat="@drawable/hawaiianpizza" android:onClick="openHawaiianCustomizePizzaActivity"/>
 
     <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="123dp"
-        android:layout_height="123dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="144dp"
-        android:layout_marginBottom="150dp"
-        android:contentDescription="Pepperoni Pizza"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton3"
-        app:srcCompat="@drawable/deluxepizza" />
+            android:id="@+id/imageButton4"
+            android:layout_width="123dp"
+            android:layout_height="123dp"
+            android:layout_marginStart="144dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="144dp"
+            android:layout_marginBottom="150dp"
+            android:contentDescription="Pepperoni Pizza"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton3"
+            app:srcCompat="@drawable/peppizza" android:onClick="openPepperoniCustomizePizzaActivity"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -138,6 +138,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/currentOrderButton"
-            android:onClick="openPizzaCustomizationActivity"/>
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

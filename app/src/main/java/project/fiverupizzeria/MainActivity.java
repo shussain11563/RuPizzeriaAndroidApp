@@ -10,16 +10,29 @@ public class MainActivity extends AppCompatActivity
 {
     private EditText phoneNumber;
 
-    private StoreOrders storeOrders; //remove this
-    private Order currentOrder;//remove this
+    private static StoreOrders storeOrders; //remove this
+    private static Order currentOrder;//remove this
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         phoneNumber = findViewById(R.id.phoneNumber);
+        storeOrders = new StoreOrders();
+        //set images maybe???
+
 
     }
+
+
+
+    //onResume
+
+    //onPause
+
+    //onDestroy()
+
+
 
     public void openPizzaCustomizationActivity(Class<?> cls)
     {
@@ -30,7 +43,7 @@ public class MainActivity extends AppCompatActivity
             return;
         }
         boolean isValid = checkPhoneNumber(phoneNumber);
-        boolean isSameNumber = this.currentOrder != null && (this.currentOrder.getPhoneNumber().equals(phoneNumber);
+        boolean isSameNumber = this.currentOrder != null && (this.currentOrder.getPhoneNumber().equals(phoneNumber));
 
         if((isValid && this.currentOrder == null) || (isValid == true && isSameNumber == false))
         {
@@ -43,13 +56,15 @@ public class MainActivity extends AppCompatActivity
             //add relevent toasts/alerts/push notifcations
 
             Intent intent = new Intent(this, cls);
+            //intent.putExtra("ORDER", currentOrder);
 
 
             startActivity(intent);
         }
         else
         {
-
+            errorInvalidPhoneNumberAlert();
+            //
         }
 
         //Intent intent = new Intent(this, PizzaCustomizationActivity.class);
@@ -57,11 +72,46 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void openDeluxeCustomizePizzaActivity(View view)
+    {
+        openPizzaCustomizationActivity(PizzaCustomizationActivity.class);
+    }
+
+    public void openHawaiianCustomizePizzaActivity(View view)
+    {
+        openPizzaCustomizationActivity(PizzaCustomizationActivity.class);
+
+    }
+
+    public void openPepperoniCustomizePizzaActivity(View view)
+    {
+        openPizzaCustomizationActivity(PizzaCustomizationActivity.class);
+    }
+
+
     public void openCurrentOrdersActivity(View view)
     {
         Intent intent = new Intent(this, CurrentOrderActivity.class);
         startActivity(intent);
     }
+
+
+    private void errorDuplicatePhoneNumber()
+    {
+
+    }
+
+
+
+    private void errorNoCurrentOrderAlert()
+    {
+    }
+
+    private void errorInvalidPhoneNumberAlert()
+    {
+
+    }
+
 
 
 
