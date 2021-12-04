@@ -9,7 +9,7 @@ import android.os.Parcelable;
  * @author Sharia Hussain, David Lam
  */
 
-public class Deluxe extends Pizza implements Parcelable {
+public class Deluxe extends Pizza {
 
     /** Constants used for the minimum cost of the Deluxe Pizza */
     private static final double MIN_COST = 12.99;
@@ -29,32 +29,6 @@ public class Deluxe extends Pizza implements Parcelable {
         this.toppings.add(Topping.DicedTomatoes);
         this.size = Size.Small;
     }
-
-    protected Deluxe(Parcel in) {
-        //super(in);
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        //super.writeToParcel(dest, flags);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Deluxe> CREATOR = new Creator<Deluxe>() {
-        @Override
-        public Deluxe createFromParcel(Parcel in) {
-            return new Deluxe(in);
-        }
-
-        @Override
-        public Deluxe[] newArray(int size) {
-            return new Deluxe[size];
-        }
-    };
 
     /**
      * Calculates the price for the pizza with toppings and size.

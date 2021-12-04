@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * orders in the StoreOrder.
  * @author Sharia Hussain, David Lam
  */
-public class StoreOrders implements Parcelable {
+public class StoreOrders implements Serializable {
     private ArrayList<Order> orders;
 
     /**
@@ -26,21 +27,6 @@ public class StoreOrders implements Parcelable {
         this.orders = new ArrayList<Order>();
     }
 
-    protected StoreOrders(Parcel in) {
-        orders = in.createTypedArrayList(Order.CREATOR);
-    }
-
-    public static final Creator<StoreOrders> CREATOR = new Creator<StoreOrders>() {
-        @Override
-        public StoreOrders createFromParcel(Parcel in) {
-            return new StoreOrders(in);
-        }
-
-        @Override
-        public StoreOrders[] newArray(int size) {
-            return new StoreOrders[size];
-        }
-    };
 
     /**
      * Adds the order to the StoreOrders.
@@ -107,30 +93,5 @@ public class StoreOrders implements Parcelable {
         return null;
     }
 
-    /**
-     * Describe the kinds of special objects contained in this Parcelable
-     * instance's marshaled representation. For example, if the object will
-     * include a file descriptor in the output of {@link #writeToParcel(Parcel, int)},
-     * the return value of this method must include the
-     * {@link #CONTENTS_FILE_DESCRIPTOR} bit.
-     *
-     * @return a bitmask indicating the set of special object types marshaled
-     * by this Parcelable object instance.
-     */
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    /**
-     * Flatten this object in to a Parcel.
-     *
-     * @param dest  The Parcel in which the object should be written.
-     * @param flags Additional flags about how the object should be written.
-     *              May be 0 or {@link #PARCELABLE_WRITE_RETURN_VALUE}.
-     */
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(orders);
-    }
 }
