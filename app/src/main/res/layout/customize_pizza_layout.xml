@@ -52,18 +52,18 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="195dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
-        android:background="#D1D1D1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.902"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.071"
-        tools:ignore="SpeakableTextPresentCheck" />
+            android:id="@+id/spinner"
+            android:layout_width="195dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="#D1D1D1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.902"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.071"
+            tools:ignore="SpeakableTextPresentCheck"/>
 
     <TextView
         android:id="@+id/textView8"
@@ -139,7 +139,6 @@
             app:layout_constraintVertical_bias="0.817" android:id="@+id/priceTextArea"/>
 
     <Button
-            android:id="@+id/addToOrderButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/addToOrderButton"
@@ -152,25 +151,25 @@
             tools:text="@string/addToOrderButton" android:onClick="addOrder"/>
 
     <ListView
-        android:layout_width="129dp"
-        android:layout_height="259dp"
-        android:background="#D1D1D1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.627" />
+            android:layout_width="129dp"
+            android:layout_height="259dp"
+            android:background="#D1D1D1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.092"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.627" android:id="@+id/additionalToppingsView"/>
 
     <ListView
-        android:layout_width="117dp"
-        android:layout_height="262dp"
-        android:background="#D1D1D1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.908"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.631" />
+            android:layout_width="117dp"
+            android:layout_height="262dp"
+            android:background="#D1D1D1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.908"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.631" android:id="@+id/selectedToppingsView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

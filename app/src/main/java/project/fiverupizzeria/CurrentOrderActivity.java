@@ -1,23 +1,116 @@
 package project.fiverupizzeria;
 
+import android.content.Intent;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import java.util.ArrayList;
 
-public class CurrentOrderActivity extends AppCompatActivity {
+
+public class CurrentOrderActivity extends AppCompatActivity
+{
+    private Order currentOrder;
+    private StoreOrders storeOrders;
+    private ListView orderListView;
+    private ArrayAdapter<Pizza> pizzaArrayAdapter;
+    private double salesTax;
+    private double orderTotal;
+    private double subtotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.current_order_layout);
+
+        Intent intent = getIntent();
+        this.currentOrder = (Order) intent.getSerializableExtra("ORDER");
+        this.storeOrders = (StoreOrders) intent.getSerializableExtra("STORE_ORDERS");
+
+        orderListView = findViewById(R.id.orderListView);
+
+        pizzaArrayAdapter = new ArrayAdapter<Pizza>(this, android.R.layout.simple_list_item_1, this.currentOrder.getPizzas());
+        orderListView.setAdapter(pizzaArrayAdapter);
+        processCost();
+        updatePrices();
+
+
+        /*
+        if(this.currentOrder!=null)
+        {
+            System.out.println("All Pizzas");
+            ArrayList<Pizza> temp = this.currentOrder.getPizzas();
+            System.out.println(temp.size());
+            System.out.println(this.currentOrder.getPhoneNumber());
+            for(int i = 0; i < temp.size(); i++)
+            {
+                System.out.println(temp.get(i).toString());
+            }
+
+        }
+        else
+        {
+            System.out.println("Hello");
+        }
+
+         */
     }
+
+    //onresume, we reupdate the arrayadapter
+
+    private void processCost() {
+        calculateSubtotal();
+        calculateSalesTax();
+        calculateOrderTotal();
+    }
+
+    /**
+     * Calculates the sales tax of the order.
+     */
+    public void calculateSalesTax() {
+        this.salesTax = (Pizza.SALES_TAX_RATE/100) * subtotal;
+    }
+
+    private void updatePrices() {
+        //setPhoneNumberTextArea(this.currentOrder.getPhoneNumber());
+        //setSubtotalTextArea(priceToString(subtotal));
+        //setSalesTaxTextArea(priceToString(salesTax));
+        //setOrderTotalTextArea(priceToString(orderTotal));
+    }
+
+    /**
+     * Calculates the order total of all the pizzas using the
+     * subtotal and the sales tax.
+     */
+    public void calculateOrderTotal() {
+        this.orderTotal = this.subtotal + this.salesTax;
+        this.currentOrder.setTotalPrice(this.orderTotal);
+    }
+
+    /**
+     * Calculates the subtotal of all the pizzas in the current order.
+     */
+    public void calculateSubtotal() {
+        double subtotal = 0;
+
+        ArrayList<Pizza> pizzas = this.currentOrder.getPizzas();
+        for(int i = 0; i < pizzas.size(); i++) {
+            subtotal += pizzas.get(i).price();
+        }
+
+        this.subtotal = subtotal;
+    }
+
 
     /**
      * Alert box when removing the last pizza
      */
+
+    /*
     public void showNoPizzasInOrder() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Warning with Removing Pizzas From Order");
@@ -33,9 +126,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    /**
-     * Alert box when no pizza is selected
-     */
+
     public void showNoPizzasSelected() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Warning with Removing Pizzas From Order");
@@ -51,9 +142,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    /**
-     * Alert box to show a confirmation when the order is to be placed
-     */
+
     public void showConfirmationForOrderToBePlaced()
     {
         if(this.currentOrder != null && this.currentOrder.getPizzas().size() > 0) {
@@ -76,9 +165,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Alert box when there is no Current Order to be Placed
-     */
+
     private void errorNoCurrentOrderAlert() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Error with Current Order");
@@ -93,4 +180,8 @@ public class CurrentOrderActivity extends AppCompatActivity {
         AlertDialog dialog = alert.create();
         dialog.show();
     }
+
+
+
+     */
 }

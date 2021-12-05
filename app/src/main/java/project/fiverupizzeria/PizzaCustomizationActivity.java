@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.*;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,13 +21,17 @@ public class PizzaCustomizationActivity extends AppCompatActivity
 {
     private ImageButton imageButton;
     private TextView chosenPizzaTextView;
+
     private ArrayAdapter<Topping> adapter;
+    private ArrayAdapter<Topping> adapter2;
+
+    private Spinner spinner;
 
     //private Arr
 
 
-    //private RecyclerView availableToppingsView;
-    //private RecyclerView selectedToppingsView;
+    private ListView availableToppingsView;
+    private ListView selectedToppingsView;
 
 
     //remove edittext and change to textview
@@ -40,15 +41,19 @@ public class PizzaCustomizationActivity extends AppCompatActivity
 
     private Pizza pizza;
 
+    private String pizzaFlavor;
+
+    private ArrayAdapter<Size> spinnerArrayAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customize_pizza_layout);
-        System.out.println("Hello world");
+
         Intent intent = getIntent();
         this.currentOrder = (Order) intent.getSerializableExtra("ORDER");
         int pizzaName = intent.getIntExtra("PIZZA_NAME", 0);
-        String pizzaFlavor = intent.getStringExtra("PIZZA_TYPE");
+        this.pizzaFlavor = intent.getStringExtra("PIZZA_TYPE");
         int pizzaPictureRid = intent.getIntExtra("PIZZA_IMAGE", 0); //MAGIC NUMBER, MAKE NOT FOUND AND CHANE TO -1
 
         //change from simple list item to somehhing
@@ -63,22 +68,29 @@ public class PizzaCustomizationActivity extends AppCompatActivity
         imageButton = findViewById(R.id.imageButton);
         imageButton.setImageResource(pizzaPictureRid);
 
+        //
+        this.spinner = findViewById(R.id.spinner);
+        spinnerArrayAdapter = new ArrayAdapter<Size>(this,
+                android.R.layout.simple_spinner_dropdown_item, Arrays.asList(Size.values()));
+        spinner.setAdapter(spinnerArrayAdapter);
+
+        //onclicklistener for listview and spinner
 
         Pizza pizza = PizzaMaker.createPizza(pizzaFlavor); //null
 
         this.pizza = pizza;
 
-        updateListView();
 
         this.priceTextArea = findViewById(R.id.priceTextArea);
 
         setPrice();
 
-        //selectedToppingsView = findViewById(R.id.selectedToppingsView);
-        //availableToppingsView = findViewById(R.id.availableToppingsView);
+
+        selectedToppingsView = findViewById(R.id.selectedToppingsView);
+        availableToppingsView = findViewById(R.id.additionalToppingsView);
 
         //change order
-
+        updateListView();
 
 
 
@@ -98,6 +110,17 @@ public class PizzaCustomizationActivity extends AppCompatActivity
 
     }
 
+    /*
+    public void selectPizzaSize(View view)
+    {
+
+        Size selectedSize =  (Size) spinner.getSelectedItem();
+        System.out.println(selectedSize);
+        pizza.setSize(selectedSize);
+        setPrice();
+
+    }
+    */
     private void disableEditText(EditText editText) {
         editText.setFocusable(false);
         editText.setEnabled(false);
@@ -105,6 +128,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity
         editText.setKeyListener(null);
         editText.setBackgroundColor(Color.TRANSPARENT);
     }
+
 
 
 
@@ -119,6 +143,13 @@ public class PizzaCustomizationActivity extends AppCompatActivity
         disableEditText(this.priceTextArea);
     }
 
+    //ondestory/onstop
+
+
+
+
+
+
     private void updateListView()
     {
 
@@ -127,7 +158,12 @@ public class PizzaCustomizationActivity extends AppCompatActivity
         allToppings.removeAll(selectedToppings);
         ArrayList<Topping> additionalToppings = allToppings;
 
-        //adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, selectedToppings);
+        adapter = new ArrayAdapter<Topping>(this, android.R.layout.simple_list_item_1, selectedToppings);
+        adapter2 = new ArrayAdapter<Topping>(this, android.R.layout.simple_list_item_1, additionalToppings);
+
+        this.selectedToppingsView.setAdapter(adapter);
+        this.availableToppingsView.setAdapter(adapter2);
+
         //selectedToppingsView.setAdapter(adapter);
 
 
@@ -154,13 +190,19 @@ public class PizzaCustomizationActivity extends AppCompatActivity
 
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which)
+            {
 
             }
         });
 
         AlertDialog dialog = alert.create();
         dialog.show();
+    }
+
+    private void callRemoveToppings()
+    {
+
     }
 
     /**
@@ -235,6 +277,24 @@ public class PizzaCustomizationActivity extends AppCompatActivity
             return true;
         }
         return false;
+    }
+
+    public void addOrder(View view)
+    {
+        this.currentOrder.addPizza(this.pizza);
+        System.out.println(this.currentOrder.getPizzas().size());
+        Intent intent = new Intent();
+        intent.putExtra("ORDER", currentOrder);
+        setResult(RESULT_OK, intent);
+        Pizza pizza = PizzaMaker.createPizza(this.pizzaFlavor);
+        this.pizza = pizza;
+        updateListView();
+        setPrice();
+
+
+        //myComboBox.setValue(Size.Small);
+
+        addToOrderAlertBox();
     }
 
     /**
