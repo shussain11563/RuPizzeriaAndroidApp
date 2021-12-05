@@ -18,4 +18,9 @@
     <string name="customerPhoneNumbersTextView">Customer Phone Numbers:</string>
     <string name="cancelOrderTextView">Cancel Order</string>
 
+    <string name="DeluxePizza">Deluxe Pizza</string>
+    <string name="HawaiianPizza">Hawaiian Pizza</string>
+    <string name="PepperoniPizza">Pepperoni Pizza</string>
+
+
 </resources>
