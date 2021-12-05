@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity
 {
     private EditText phoneNumber;
 
+
     private static StoreOrders storeOrders; //remove this
     private static Order currentOrder;//remove this
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    public void openPizzaCustomizationActivity(String name, int pictureRid)
+    public void openPizzaCustomizationActivity(int stringPizzaRid, String pizzaType, int pictureRid)
     {
 
         System.out.println("phone number check on line 40");
@@ -58,9 +59,11 @@ public class MainActivity extends AppCompatActivity
             //add relevent toasts/alerts/push notifcations
 
             Intent intent = new Intent(this, PizzaCustomizationActivity.class);
-            intent.putExtra("ORDER", currentOrder);
+
+            intent.putExtra("PIZZA_NAME", stringPizzaRid);
+            intent.putExtra("PIZZA_TYPE", pizzaType);
             intent.putExtra("PIZZA_IMAGE", pictureRid);
-            intent.putExtra("PIZZA_TYPE", name);
+            intent.putExtra("ORDER", currentOrder);
             //intent.putExtra("ORDER", currentOrder);
             startActivity(intent);
         }
@@ -77,26 +80,29 @@ public class MainActivity extends AppCompatActivity
 
     public void openDeluxeCustomizePizzaActivity(View view)
     {
+        int name = R.string.DeluxePizza;
         String pizzaType = "Deluxe Pizza";
         int picture = R.drawable.deluxepizza;
-        openPizzaCustomizationActivity(pizzaType, picture);
+
+        openPizzaCustomizationActivity(name ,pizzaType, picture);
     }
 
     public void openHawaiianCustomizePizzaActivity(View view)
     {
+        int name = R.string.HawaiianPizza;
         String pizzaType = "Hawaiian Pizza";
         int picture = R.drawable.hawaiianpizza;
-        openPizzaCustomizationActivity(pizzaType, picture);
-
+        openPizzaCustomizationActivity(name ,pizzaType, picture);
         //openPizzaCustomizationActivity(PizzaCustomizationActivity.class);
 
     }
 
     public void openPepperoniCustomizePizzaActivity(View view)
     {
+        int name = R.string.PepperoniPizza;
         String pizzaType = "Pepperoni Pizza";
         int picture = R.drawable.peppizza;
-        openPizzaCustomizationActivity(pizzaType, picture);
+        openPizzaCustomizationActivity(name ,pizzaType, picture);
         //openPizzaCustomizationActivity(PizzaCustomizationActivity.class);
     }
 
