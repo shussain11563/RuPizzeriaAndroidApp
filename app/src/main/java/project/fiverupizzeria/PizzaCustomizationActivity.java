@@ -10,15 +10,25 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class PizzaCustomizationActivity extends AppCompatActivity
 {
     private ImageButton imageButton;
     private TextView chosenPizzaTextView;
-    private ArrayAdapter adapter;
+    private ArrayAdapter<Topping> adapter;
+
+    //private Arr
+
+
+    //private RecyclerView availableToppingsView;
+    //private RecyclerView selectedToppingsView;
+
 
     //remove edittext and change to textview
     private EditText priceTextArea;
@@ -38,7 +48,8 @@ public class PizzaCustomizationActivity extends AppCompatActivity
         String pizzaFlavor = intent.getStringExtra("PIZZA_TYPE");
         int pizzaPictureRid = intent.getIntExtra("PIZZA_IMAGE", 0); //MAGIC NUMBER, MAKE NOT FOUND AND CHANE TO -1
 
-
+        //change from simple list item to somehhing
+       ;
         /*
         IF RID == NOT FOUND, ERROR MESSAGE?!?!?!
          */
@@ -60,8 +71,14 @@ public class PizzaCustomizationActivity extends AppCompatActivity
 
         setPrice();
 
+        //selectedToppingsView = findViewById(R.id.selectedToppingsView);
+        //availableToppingsView = findViewById(R.id.availableToppingsView);
 
-        //chosenPizzaTextView.setText();
+        //change order
+
+
+
+
 
 
         //System.out.println(pizzaName);
@@ -101,11 +118,18 @@ public class PizzaCustomizationActivity extends AppCompatActivity
 
     private void updateListView()
     {
-        /*
-        selectedToppings = this.pizza.getToppings();
+
+        ArrayList<Topping> selectedToppings = this.pizza.getToppings();
         ArrayList<Topping> allToppings = new ArrayList<Topping>(Arrays.asList(Topping.values()));
         allToppings.removeAll(selectedToppings);
-        additionalToppings = allToppings;
+        ArrayList<Topping> additionalToppings = allToppings;
+
+        //adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, selectedToppings);
+        //selectedToppingsView.setAdapter(adapter);
+
+
+
+        /*
 
         ObservableList<Topping> selectedToppingsList = FXCollections.observableArrayList(selectedToppings);
         selectedToppingsListView.setItems(FXCollections.observableList(selectedToppingsList));
