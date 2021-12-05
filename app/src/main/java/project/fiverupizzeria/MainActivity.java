@@ -11,13 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
 {
     private EditText phoneNumber;
 
 
-    private static StoreOrders storeOrders; //remove this
-    private static Order currentOrder;//remove this
+    public static StoreOrders storeOrders; //remove this
+    public static Order currentOrder;//remove this
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +32,30 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    //test this
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(this.currentOrder!=null)
+        {
+            ArrayList<Pizza> temp = this.currentOrder.getPizzas();
+            for(int i = 0; i < temp.size(); i++)
+            {
+                System.out.println(temp.get(i).toString());
+            }
+
+        }
+        else
+        {
+            System.out.println("Hello");
+        }
 
 
-    //onResume
+    }
+
+
+        //onResume
 
     //onPause
 
@@ -55,6 +78,7 @@ public class MainActivity extends AppCompatActivity
 
         if((isValid && this.currentOrder == null) || (isValid == true && isSameNumber == false))
         {
+            System.out.println("New Order Object");
             this.currentOrder = new Order(phoneNumber);
         }
 
@@ -74,9 +98,9 @@ public class MainActivity extends AppCompatActivity
                     intent.putExtra("PIZZA_NAME", stringPizzaRid);
                     intent.putExtra("PIZZA_TYPE", pizzaType);
                     intent.putExtra("PIZZA_IMAGE", pictureRid);
-                    intent.putExtra("ORDER", currentOrder);
-                    //intent.putExtra("ORDER", currentOrder);
-                    startActivity(intent);
+                    intent.putExtra("ORDER", MainActivity.currentOrder);
+                    //intent.putExtra("ORDER", );
+                    startActivityForResult(intent, 1);
                 }
             });
 
@@ -87,8 +111,20 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent intent)
+    {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (resultCode == RESULT_OK) {
+            MainActivity.currentOrder = (Order) intent.getSerializableExtra("ORDER");
+        }
+    }
+
     public void openDeluxeCustomizePizzaActivity(View view)
     {
+
         int name = R.string.DeluxePizza;
         String pizzaType = "Deluxe Pizza";
         int picture = R.drawable.deluxepizza;
@@ -106,6 +142,8 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+
     public void openPepperoniCustomizePizzaActivity(View view)
     {
         int name = R.string.PepperoniPizza;
@@ -122,8 +160,8 @@ public class MainActivity extends AppCompatActivity
         {
             //make order a variable
             Intent intent = new Intent(this, CurrentOrderActivity.class);
-            intent.putExtra("ORDER", this.currentOrder);
-            intent.putExtra("STORE_ORDER", this.storeOrders);
+            intent.putExtra("ORDER", MainActivity.currentOrder);
+            intent.putExtra("STORE_ORDERS", this.storeOrders);
             //data
             //safe initialize
             startActivity(intent);

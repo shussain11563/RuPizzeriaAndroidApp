@@ -4,6 +4,7 @@ package project.fiverupizzeria;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  * manipulation of toppings and calculation of pizzas.
  * @author Sharia Hussain, David Lam
  */
-public abstract class Pizza {
+public abstract class Pizza implements Serializable {
 
     protected ArrayList<Topping> toppings = new ArrayList<Topping>();
     protected Size size;
