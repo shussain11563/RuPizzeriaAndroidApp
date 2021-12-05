@@ -1,10 +1,15 @@
 package project.fiverupizzeria;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -56,26 +61,30 @@ public class MainActivity extends AppCompatActivity
 
         if(checkPhoneNumber(phoneNumber))
         {
-            //add relevent toasts/alerts/push notifcations
-
             Intent intent = new Intent(this, PizzaCustomizationActivity.class);
 
-            intent.putExtra("PIZZA_NAME", stringPizzaRid);
-            intent.putExtra("PIZZA_TYPE", pizzaType);
-            intent.putExtra("PIZZA_IMAGE", pictureRid);
-            intent.putExtra("ORDER", currentOrder);
-            //intent.putExtra("ORDER", currentOrder);
-            startActivity(intent);
-        }
-        else
-        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("Confirmation");
+            alert.setMessage("Click to Continue with Order");
+
+            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    intent.putExtra("PIZZA_NAME", stringPizzaRid);
+                    intent.putExtra("PIZZA_TYPE", pizzaType);
+                    intent.putExtra("PIZZA_IMAGE", pictureRid);
+                    intent.putExtra("ORDER", currentOrder);
+                    //intent.putExtra("ORDER", currentOrder);
+                    startActivity(intent);
+                }
+            });
+
+            AlertDialog dialog = alert.create();
+            dialog.show();
+        } else {
             errorInvalidPhoneNumberAlert();
-            //
         }
-
-        //Intent intent = new Intent(this, PizzaCustomizationActivity.class);
-
-
     }
 
     public void openDeluxeCustomizePizzaActivity(View view)
@@ -119,8 +128,7 @@ public class MainActivity extends AppCompatActivity
             //safe initialize
             startActivity(intent);
         }
-        else
-        {
+        else {
             errorNoCurrentOrderAlert();
         }
         //Intent intent = new Intent(this, CurrentOrderActivity.class);
@@ -149,24 +157,67 @@ public class MainActivity extends AppCompatActivity
      *     }
      */
 
+    /**
+     * Shows alert box when there is a phone number that already ordered
+     * tries to order again.
+     */
     private void errorDuplicatePhoneNumber()
     {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Error with Phone Number");
+        alert.setMessage("Phone Number Has Already Ordered");
 
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
     }
 
-
-
-    private void errorNoCurrentOrderAlert()
-    {
-    }
-
+    /**
+     * Shows alert box when there is a phone number that is invalid.
+     */
     private void errorInvalidPhoneNumberAlert()
     {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Error with Phone Number");
+        alert.setMessage("Phone Number Not Valid");
+
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
 
     }
 
+    /**
+     * Displays alert box when manipulating an order that does not exist.
+     */
+    private void errorNoCurrentOrderAlert()
+    {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Error with Current Order");
+        alert.setMessage("There is no current order.");
 
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
+            }
+        });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
 
     /**
      * Validates whether a phoneNumber is valid or not.
@@ -189,9 +240,5 @@ public class MainActivity extends AppCompatActivity
         }
 
         return true;
-
     }
-
-
-
 }
