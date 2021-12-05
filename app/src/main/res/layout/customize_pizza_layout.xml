@@ -78,15 +78,15 @@
         app:layout_constraintVertical_bias="0.36" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="126dp"
-        android:layout_height="221dp"
-        android:background="#D1D1D1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.087"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.58" />
+            android:layout_width="126dp"
+            android:layout_height="221dp"
+            android:background="#D1D1D1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.087"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.58" android:id="@+id/availableToppingsView"/>
 
     <Button
         android:id="@+id/button"
@@ -125,7 +125,7 @@
         app:layout_constraintVertical_bias="0.359" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/selectedToppingsView"
         android:layout_width="123dp"
         android:layout_height="219dp"
         android:background="#D1D1D1"
