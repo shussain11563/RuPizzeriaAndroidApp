@@ -149,19 +149,14 @@ public class MainActivity extends AppCompatActivity
      *     }
      */
 
-    private void errorDuplicatePhoneNumber()
-    {
+    private void errorDuplicatePhoneNumber() {
 
     }
 
-
-
-    private void errorNoCurrentOrderAlert()
-    {
+    private void errorNoCurrentOrderAlert() {
     }
 
-    private void errorInvalidPhoneNumberAlert()
-    {
+    private void errorInvalidPhoneNumberAlert() {
 
     }
 
