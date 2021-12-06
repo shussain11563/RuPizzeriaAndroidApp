@@ -45,6 +45,8 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
 
     private ArrayAdapter<Size> spinnerArrayAdapter;
 
+    private StoreOrders storeOrders;
+
 
 
     @Override
@@ -54,6 +56,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
 
         Intent intent = getIntent();
         this.currentOrder = (Order) intent.getSerializableExtra("ORDER");
+        this.storeOrders = (StoreOrders) intent.getSerializableExtra("STORE_ORDERS");
         int pizzaName = intent.getIntExtra("PIZZA_NAME", 0);
         this.pizzaFlavor = intent.getStringExtra("PIZZA_TYPE");
         int pizzaPictureRid = intent.getIntExtra("PIZZA_IMAGE", 0); //MAGIC NUMBER, MAKE NOT FOUND AND CHANE TO -1
@@ -284,6 +287,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
 
         Intent intent = new Intent();
         intent.putExtra("ORDER", currentOrder);
+        intent.putExtra("STORE_ORDERS", this.storeOrders);
         setResult(RESULT_OK, intent);
 
         Pizza pizza = PizzaMaker.createPizza(this.pizzaFlavor);

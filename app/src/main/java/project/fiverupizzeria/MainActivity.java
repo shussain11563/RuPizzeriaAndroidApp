@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity
                     intent.putExtra("PIZZA_TYPE", pizzaType);
                     intent.putExtra("PIZZA_IMAGE", pictureRid);
                     intent.putExtra("ORDER", MainActivity.currentOrder);
+                    intent.putExtra("STORE_ORDERS", MainActivity.storeOrders);
                     //intent.putExtra("ORDER", );
                     startActivityForResult(intent, 1);
                 }
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, intent);
         if (resultCode == RESULT_OK) {
             MainActivity.currentOrder = (Order) intent.getSerializableExtra("ORDER");
+            MainActivity.storeOrders = (StoreOrders) intent.getSerializableExtra("STORE_ORDERS");
         }
     }
 
@@ -129,8 +131,7 @@ public class MainActivity extends AppCompatActivity
         int name = R.string.DeluxePizza;
         String pizzaType = "Deluxe Pizza";
         int picture = R.drawable.deluxepizza;
-
-        openPizzaCustomizationActivity(name ,pizzaType, picture);
+        openPizzaCustomizationActivity(name, pizzaType, picture);
     }
 
     public void openHawaiianCustomizePizzaActivity(View view)
@@ -139,8 +140,6 @@ public class MainActivity extends AppCompatActivity
         String pizzaType = "Hawaiian Pizza";
         int picture = R.drawable.hawaiianpizza;
         openPizzaCustomizationActivity(name ,pizzaType, picture);
-        //openPizzaCustomizationActivity(PizzaCustomizationActivity.class);
-
     }
 
 
@@ -151,7 +150,6 @@ public class MainActivity extends AppCompatActivity
         String pizzaType = "Pepperoni Pizza";
         int picture = R.drawable.peppizza;
         openPizzaCustomizationActivity(name ,pizzaType, picture);
-        //openPizzaCustomizationActivity(PizzaCustomizationActivity.class);
     }
 
 
@@ -165,7 +163,7 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("STORE_ORDERS", this.storeOrders);
             //data
             //safe initialize
-            startActivity(intent);
+            startActivityForResult(intent, 1);
         }
         else {
             errorNoCurrentOrderAlert();

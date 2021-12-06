@@ -1,6 +1,7 @@
 package project.fiverupizzeria;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
@@ -21,16 +22,23 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     private Spinner spinnerPhoneNumber;
     private ListView storeOrderListView;
     private ArrayAdapter<String> spinnerArrayAdapterPhoneNumber;
+    private ArrayAdapter<Pizza> pizzaArrayAdapter;
+    EditText priceStoreActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_store_orders_layout);
+
+        priceStoreActivity = findViewById(R.id.priceStoreActivity);
+        storeOrderListView = findViewById(R.id.storeOrderListView);
+
         Intent intent = getIntent();
         this.storeOrders = (StoreOrders) intent.getSerializableExtra("STORE_ORDERS");
         spinnerPhoneNumber = findViewById(R.id.spinnerPhoneNumber);
-        //storeOrderListView
-        populatePhoneNumber();
+
+        populatePhoneNumber(); //make no default
+        //disableEditText(this.priceStoreActivity);
     }
 
     private void populatePhoneNumber()
@@ -69,15 +77,25 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
             errorCannotCancelOrder();
         }
 
-
-        this.storeOrderListView.getItems().clear();
+        //this.storeOrderListView.
+        //this.storeOrderListView.getItems().clear();
 
         populatePhoneNumber();
-        this.orderTotalTextArea.clear();
+        this.priceStoreActivity.getText().clear();
+        disableEditText(this.priceStoreActivity);
+        //this.orderTotalTextArea.clear();
 
         //update
 
         //set new thing
+    }
+
+    private void disableEditText(EditText editText) {
+        editText.setFocusable(false);
+        editText.setEnabled(false);
+        editText.setCursorVisible(false);
+        editText.setKeyListener(null);
+        editText.setBackgroundColor(Color.TRANSPARENT);
     }
 
 
@@ -114,7 +132,7 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
-
+/*
     private void setPhoneNumber(String phoneNumber)
     {
         this.storeOrderListView.getItems().clear();
@@ -139,6 +157,8 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     }
 
 
+ */
+
     /**
      * <p>Callback method to be invoked when an item in this view has been
      * selected. This callback is invoked only when the newly selected
@@ -157,7 +177,7 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
         String phoneNumber = (String) parent.getItemAtPosition(position);
-        setPhoneNumber(phoneNumber);
+        //setPhoneNumber(phoneNumber);
 
     }
 
