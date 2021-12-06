@@ -3,6 +3,7 @@ package project.fiverupizzeria;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,8 @@ public class CurrentOrderActivity extends AppCompatActivity
     private double orderTotal;
     private double subtotal;
 
+    EditText phoneNumberOrderActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,8 @@ public class CurrentOrderActivity extends AppCompatActivity
         this.storeOrders = (StoreOrders) intent.getSerializableExtra("STORE_ORDERS");
 
         orderListView = findViewById(R.id.orderListView);
+        phoneNumberOrderActivity = findViewById(R.id.phoneNumberOrderActivity);
+        phoneNumberOrderActivity.setText(this.currentOrder.getPhoneNumber());
 
         pizzaArrayAdapter = new ArrayAdapter<Pizza>(this, android.R.layout.simple_list_item_1, this.currentOrder.getPizzas());
         orderListView.setAdapter(pizzaArrayAdapter);
