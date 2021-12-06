@@ -1,5 +1,6 @@
 package project.fiverupizzeria;
 
+import android.content.Intent;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,14 +9,39 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 
-public class StoreOrderActivity extends AppCompatActivity {
+
+public class StoreOrderActivity extends AppCompatActivity
+{
+    private StoreOrders storeOrders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_store_orders_layout);
+        Intent intent = getIntent();
+        this.storeOrders = (StoreOrders) intent.getSerializableExtra("STORE_ORDERS");
+        populatePhoneNumber();
     }
+
+    private void populatePhoneNumber()
+    {
+        ArrayList<String> phoneNumbers = new ArrayList<String>();
+        ArrayList<Order> orders = this.storeOrders.getOrders();
+
+        for(int i = 0; i < orders.size(); i++)
+        {
+            phoneNumbers.add(orders.get(i).getPhoneNumber());
+        }
+        ObservableList<String> phoneNumbersList = FXCollections.observableArrayList(phoneNumbers);
+        this.customerPhoneNumberComboBox.setItems(phoneNumbersList);
+
+
+    }
+
+
+
 
     /**
      * Alert box when there is no Current Order to be cancelled

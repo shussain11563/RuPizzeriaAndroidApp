@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
 
+        /**
         if(this.currentOrder!=null)
         {
             ArrayList<Pizza> temp = this.currentOrder.getPizzas();
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity
             System.out.println("Hello");
         }
 
+         **/
 
     }
 

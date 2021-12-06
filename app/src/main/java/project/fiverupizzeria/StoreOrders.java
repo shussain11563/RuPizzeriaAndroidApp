@@ -52,31 +52,6 @@ public class StoreOrders implements Serializable {
         return orders;
     }
 
-    /**
-     * Exports the information of the orders to a file
-     * @param file the files to be exported.
-     */
-    public void export(File file) throws FileNotFoundException
-    {
-        if(file == null)
-        {
-            throw new FileNotFoundException();
-        }
-        PrintWriter printWriter = new PrintWriter(file);
-        printWriter.println("----------- STORE ORDERS -----------\n");
-
-        for(int i = 0; i < orders.size(); i++) {
-            Order order = orders.get(i);
-            printWriter.println(String.format("ORDER NUMBER: %s", order.getPhoneNumber()));
-            ArrayList<Pizza> pizzasInOrder = order.getPizzas();
-            for(int j = 0; j < pizzasInOrder.size(); j++) {
-                Pizza pizza = pizzasInOrder.get(j);
-                printWriter.println(String.format("- %s", pizza.toString()));
-            }
-            printWriter.print("\n");
-        }
-        printWriter.close();
-    }
 
     /**
      * Finds the order based on the phoneNyumber
