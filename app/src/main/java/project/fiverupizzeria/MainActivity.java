@@ -15,10 +15,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
 {
     private EditText phoneNumber;
-
-
-    public static StoreOrders storeOrders; //remove this
-    public static Order currentOrder;//remove this
+    public static StoreOrders storeOrders;
+    public static Order currentOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,43 +24,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         phoneNumber = findViewById(R.id.phoneNumber);
         storeOrders = new StoreOrders();
-        //set images maybe???
-
-
     }
 
     //test this
     @Override
     protected void onResume() {
         super.onResume();
-
-        /**
-        if(this.currentOrder!=null)
-        {
-            ArrayList<Pizza> temp = this.currentOrder.getPizzas();
-            for(int i = 0; i < temp.size(); i++)
-            {
-                System.out.println(temp.get(i).toString());
-            }
-
-        }
-        else
-        {
-            System.out.println("Hello");
-        }
-
-         **/
-
     }
-
-
-        //onResume
-
-    //onPause
-
-    //onDestroy()
-
-
 
     public void openPizzaCustomizationActivity(int stringPizzaRid, String pizzaType, int pictureRid)
     {
@@ -101,7 +69,6 @@ public class MainActivity extends AppCompatActivity
                     intent.putExtra("PIZZA_IMAGE", pictureRid);
                     intent.putExtra("ORDER", MainActivity.currentOrder);
                     intent.putExtra("STORE_ORDERS", MainActivity.storeOrders);
-                    //intent.putExtra("ORDER", );
                     startActivityForResult(intent, 1);
                 }
             });
@@ -123,6 +90,15 @@ public class MainActivity extends AppCompatActivity
             MainActivity.currentOrder = (Order) intent.getSerializableExtra("ORDER");
             MainActivity.storeOrders = (StoreOrders) intent.getSerializableExtra("STORE_ORDERS");
         }
+    }
+
+    public void openStoreOrdersActivity(View view)
+    {
+        Intent intent = new Intent(this, StoreOrderActivity.class);
+        intent.putExtra("ORDER", MainActivity.currentOrder);
+        intent.putExtra("STORE_ORDERS", MainActivity.storeOrders);
+        startActivityForResult(intent, 1);//magic number
+
     }
 
     public void openDeluxeCustomizePizzaActivity(View view)
@@ -157,47 +133,21 @@ public class MainActivity extends AppCompatActivity
     {
         if(this.currentOrder != null)
         {
-            //make order a variable
             Intent intent = new Intent(this, CurrentOrderActivity.class);
             intent.putExtra("ORDER", MainActivity.currentOrder);
             intent.putExtra("STORE_ORDERS", this.storeOrders);
-            //data
-            //safe initialize
             startActivityForResult(intent, 1);
         }
         else {
             errorNoCurrentOrderAlert();
         }
-        //Intent intent = new Intent(this, CurrentOrderActivity.class);
-        //startActivity(intent);
+
     }
 
     //redo titles in manifest and make them strings
 
 
-    /**
-     *
-     *
-     * void openCurrentOrdersWindow(ActionEvent event) throws IOException {
-     *         if(this.currentOrder != null) {
-     *     \
-     *
-     *             RuPizzaCurrentOrderController setController = fxmlLoader.getController();
-     *             setController.setMainController(this);
-     *             setController.safeInitialize();
-     *
-     *             Stage stage = new Stage();
-     *             stage.setScene(new Scene(root, 900, 700));
-     *             stage.setTitle("Customize Your Pizza");
-     *             stage.show();
-     *
-     *     }
-     */
 
-    /**
-     * Shows alert box when there is a phone number that already ordered
-     * tries to order again.
-     */
     private void errorDuplicatePhoneNumber()
     {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
