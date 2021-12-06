@@ -96,7 +96,7 @@
             tools:text="@string/placeOrderButton" android:onClick="placeOrder"/>
 
     <EditText
-            android:id="@+id/editTextTextPersonName3"
+            android:id="@+id/subtotalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -110,7 +110,7 @@
             app:layout_constraintVertical_bias="0.702"/>
 
     <EditText
-            android:id="@+id/editTextTextPersonName4"
+            android:id="@+id/salesTaxText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -124,7 +124,7 @@
             app:layout_constraintVertical_bias="0.784"/>
 
     <EditText
-            android:id="@+id/editTextTextPersonName5"
+            android:id="@+id/orderTotalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"

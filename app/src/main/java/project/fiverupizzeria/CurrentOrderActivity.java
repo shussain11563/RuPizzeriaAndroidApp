@@ -2,16 +2,16 @@ package project.fiverupizzeria;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
+import android.graphics.Color;
+import android.view.View;
+import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -24,6 +24,7 @@ public class CurrentOrderActivity extends AppCompatActivity
     private double salesTax;
     private double orderTotal;
     private double subtotal;
+    EditText subtotalText, salesTaxText, orderTotalText;
 
     EditText phoneNumberOrderActivity;
 
@@ -37,35 +38,65 @@ public class CurrentOrderActivity extends AppCompatActivity
         this.storeOrders = (StoreOrders) intent.getSerializableExtra("STORE_ORDERS");
 
         orderListView = findViewById(R.id.orderListView);
+        subtotalText = findViewById(R.id.subtotalText);
+        salesTaxText = findViewById(R.id.salesTaxText);
+        orderTotalText = findViewById(R.id.orderTotalText);
+
+
+
+
+
         phoneNumberOrderActivity = findViewById(R.id.phoneNumberOrderActivity);
-        phoneNumberOrderActivity.setText(this.currentOrder.getPhoneNumber());
+        //phoneNumberOrderActivity.setText(this.currentOrder.getPhoneNumber());
 
         pizzaArrayAdapter = new ArrayAdapter<Pizza>(this, android.R.layout.simple_list_item_1, this.currentOrder.getPizzas());
         orderListView.setAdapter(pizzaArrayAdapter);
+        orderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                removeSelectedPizza((Pizza) orderListView.getItemAtPosition(position));
+            }
+        });
+
+
         processCost();
         updatePrices();
 
-
-        /*
-        if(this.currentOrder!=null)
-        {
-            System.out.println("All Pizzas");
-            ArrayList<Pizza> temp = this.currentOrder.getPizzas();
-            System.out.println(temp.size());
-            System.out.println(this.currentOrder.getPhoneNumber());
-            for(int i = 0; i < temp.size(); i++)
-            {
-                System.out.println(temp.get(i).toString());
-            }
-
-        }
-        else
-        {
-            System.out.println("Hello");
-        }
-
-         */
     }
+
+    private void clear()
+    {
+        this.salesTaxText.getText().clear();
+        this.subtotalText.getText().clear();
+        this.orderTotalText.getText().clear();
+        this.phoneNumberOrderActivity.getText().clear();
+        disableEditText(salesTaxText);
+        disableEditText(subtotalText);
+        disableEditText(orderTotalText);
+        disableEditText(phoneNumberOrderActivity);
+
+        this.currentOrder.getPizzas().clear();
+        this.pizzaArrayAdapter.notifyDataSetChanged();
+
+        this.currentOrder = null; //???
+
+        Intent intent = new Intent();
+        intent.putExtra("ORDER", this.currentOrder);
+        intent.putExtra("STORE_ORDERS", this.storeOrders);
+        setResult(RESULT_OK, intent);
+    }
+
+
+    public void callRemovePizza(Pizza pizzaObj) {
+        Pizza pizza = pizzaObj;
+        pizzaArrayAdapter.remove(pizza);
+        pizzaArrayAdapter.notifyDataSetChanged();
+        this.currentOrder.removePizza(pizza);
+    }
+
+
+
 
     //onresume, we reupdate the arrayadapter
 
@@ -82,11 +113,56 @@ public class CurrentOrderActivity extends AppCompatActivity
         this.salesTax = (Pizza.SALES_TAX_RATE/100) * subtotal;
     }
 
+    public String priceToString(double value) {
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+        return String.format("$%s", df.format(value));
+    }
+
     private void updatePrices() {
-        //setPhoneNumberTextArea(this.currentOrder.getPhoneNumber());
-        //setSubtotalTextArea(priceToString(subtotal));
-        //setSalesTaxTextArea(priceToString(salesTax));
-        //setOrderTotalTextArea(priceToString(orderTotal));
+        setPhoneNumberTextArea(this.currentOrder.getPhoneNumber());
+        setSubtotalTextArea(priceToString(subtotal));
+        setSalesTaxTextArea(priceToString(salesTax));
+        setOrderTotalTextArea(priceToString(orderTotal));
+    }
+
+    public void setPhoneNumberTextArea(String phoneNumber)
+    {
+        phoneNumberOrderActivity.setText(phoneNumber);
+        disableEditText(phoneNumberOrderActivity);
+        //disable text
+    }
+
+    public void setSubtotalTextArea(String subtotal) {
+        subtotalText.setText(subtotal);
+        disableEditText(subtotalText);
+        //disable text
+    }
+
+    /**
+     * Prints the sales tax total into the text area.
+     * @param salesTax the string representation of the sales tax of the order.
+     */
+    public void setSalesTaxTextArea(String salesTax) {
+        salesTaxText.setText(salesTax);
+        disableEditText(salesTaxText);
+        //disable text
+    }
+
+    /**
+     * Prints the order total into the text area.
+     * @param total the total price of the order.
+     */
+    public void setOrderTotalTextArea(String total) {
+        orderTotalText.setText(total);
+        disableEditText(orderTotalText);
+    }
+
+    private void disableEditText(EditText editText) {
+        editText.setFocusable(false);
+        editText.setEnabled(false);
+        editText.setCursorVisible(false);
+        editText.setKeyListener(null);
+        editText.setBackgroundColor(Color.TRANSPARENT);
     }
 
     /**
@@ -113,42 +189,12 @@ public class CurrentOrderActivity extends AppCompatActivity
     }
 
 
-    /**
-     * Alert box when removing the last pizza
-     */
 
-    /*
-    public void showNoPizzasInOrder() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Warning with Removing Pizzas From Order");
-        alert.setMessage("There are no pizzas in the order!");
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-
-        AlertDialog dialog = alert.create();
-        dialog.show();
+    public void placeOrder(View view)
+    {
+        showConfirmationForOrderToBePlaced();
     }
-
-
-    public void showNoPizzasSelected() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Warning with Removing Pizzas From Order");
-        alert.setMessage("No pizzas selected!");
-
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-
-        AlertDialog dialog = alert.create();
-        dialog.show();
-    }
-
 
     public void showConfirmationForOrderToBePlaced()
     {
@@ -159,9 +205,9 @@ public class CurrentOrderActivity extends AppCompatActivity
 
             alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    this.storeOrders.addOrder(this.currentOrder);
-                    clear();
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    addToStoreOrder();
                 }
             });
 
@@ -172,6 +218,12 @@ public class CurrentOrderActivity extends AppCompatActivity
         }
     }
 
+    private void addToStoreOrder()
+    {
+        this.storeOrders.addOrder(this.currentOrder);
+        showOrderIsPlacedToast();
+        clear();
+    }
 
     private void errorNoCurrentOrderAlert() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -188,9 +240,60 @@ public class CurrentOrderActivity extends AppCompatActivity
         dialog.show();
     }
 
+    //Everything below here is not done
+
+    private void removeSelectedPizza(Pizza pizza)
+    {
+        if(pizza != null) {
+            if(orderListView.getAdapter().getCount() > 0) {
+                callRemovePizza(pizza);
+            }
+            else {
+                showNoPizzasInOrder();
+            }
+            processCost();
+            updatePrices();
+        }
+        else {
+            showNoPizzasSelected();
+        }
+    }
+
+    public void showNoPizzasSelected() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Warning with Removing Pizzas From Order");
+        alert.setMessage("No pizzas selected!");
+
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+
+    public void showNoPizzasInOrder() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Warning with Removing Pizzas From Order");
+        alert.setMessage("There are no pizzas in the order!");
+
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
 
 
-     */
+
+
+
+
 
     /**
      * Shows toast box when order has been placed

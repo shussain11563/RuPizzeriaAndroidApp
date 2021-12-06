@@ -1,6 +1,7 @@
 package project.fiverupizzeria;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
@@ -22,16 +23,22 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     private ListView storeOrderListView;
     private ArrayAdapter<String> spinnerArrayAdapterPhoneNumber;
     private ArrayAdapter<Pizza> pizzaArrayAdapter;
+    EditText priceStoreActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_store_orders_layout);
+
+        priceStoreActivity = findViewById(R.id.priceStoreActivity);
+        storeOrderListView = findViewById(R.id.storeOrderListView);
+
         Intent intent = getIntent();
         this.storeOrders = (StoreOrders) intent.getSerializableExtra("STORE_ORDERS");
         spinnerPhoneNumber = findViewById(R.id.spinnerPhoneNumber);
-        //storeOrderListView
-        populatePhoneNumber();
+
+        populatePhoneNumber(); //make no default
+        //disableEditText(this.priceStoreActivity);
     }
 
     private void populatePhoneNumber()
@@ -70,15 +77,25 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
             errorCannotCancelOrder();
         }
 
-
+        //this.storeOrderListView.
         //this.storeOrderListView.getItems().clear();
 
         populatePhoneNumber();
+        this.priceStoreActivity.getText().clear();
+        disableEditText(this.priceStoreActivity);
         //this.orderTotalTextArea.clear();
 
         //update
 
         //set new thing
+    }
+
+    private void disableEditText(EditText editText) {
+        editText.setFocusable(false);
+        editText.setEnabled(false);
+        editText.setCursorVisible(false);
+        editText.setKeyListener(null);
+        editText.setBackgroundColor(Color.TRANSPARENT);
     }
 
 
