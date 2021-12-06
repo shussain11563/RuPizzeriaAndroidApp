@@ -21,6 +21,7 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     private Spinner spinnerPhoneNumber;
     private ListView storeOrderListView;
     private ArrayAdapter<String> spinnerArrayAdapterPhoneNumber;
+    private ArrayAdapter<Pizza> pizzaArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +71,10 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         }
 
 
-        this.storeOrderListView.getItems().clear();
+        //this.storeOrderListView.getItems().clear();
 
         populatePhoneNumber();
-        this.orderTotalTextArea.clear();
+        //this.orderTotalTextArea.clear();
 
         //update
 
@@ -114,7 +115,7 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
-
+/*
     private void setPhoneNumber(String phoneNumber)
     {
         this.storeOrderListView.getItems().clear();
@@ -139,6 +140,8 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     }
 
 
+ */
+
     /**
      * <p>Callback method to be invoked when an item in this view has been
      * selected. This callback is invoked only when the newly selected
@@ -157,7 +160,7 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
         String phoneNumber = (String) parent.getItemAtPosition(position);
-        setPhoneNumber(phoneNumber);
+        //setPhoneNumber(phoneNumber);
 
     }
 
