@@ -35,9 +35,8 @@ public class MainActivity extends AppCompatActivity
     public void openPizzaCustomizationActivity(int stringPizzaRid, String pizzaType, int pictureRid)
     {
 
-        System.out.println("phone number check on line 40");
         String phoneNumber = this.phoneNumber.getText().toString().trim();
-        System.out.println(phoneNumber);
+
         if(this.storeOrders.find(phoneNumber)!=null) {
             errorDuplicatePhoneNumber();  //change this
             return;
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity
 
         if((isValid && this.currentOrder == null) || (isValid == true && isSameNumber == false))
         {
-            System.out.println("New Order Object");
             this.currentOrder = new Order(phoneNumber);
         }
 
@@ -115,7 +113,7 @@ public class MainActivity extends AppCompatActivity
         int name = R.string.HawaiianPizza;
         String pizzaType = "Hawaiian Pizza";
         int picture = R.drawable.hawaiianpizza;
-        openPizzaCustomizationActivity(name ,pizzaType, picture);
+        openPizzaCustomizationActivity(name, pizzaType, picture);
     }
 
 
@@ -125,7 +123,7 @@ public class MainActivity extends AppCompatActivity
         int name = R.string.PepperoniPizza;
         String pizzaType = "Pepperoni Pizza";
         int picture = R.drawable.peppizza;
-        openPizzaCustomizationActivity(name ,pizzaType, picture);
+        openPizzaCustomizationActivity(name, pizzaType, picture);
     }
 
 
