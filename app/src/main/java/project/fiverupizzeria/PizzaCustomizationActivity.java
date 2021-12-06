@@ -5,13 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class PizzaCustomizationActivity extends AppCompatActivity
+public class PizzaCustomizationActivity extends AppCompatActivity implements OnItemSelectedListener
 {
     private ImageButton imageButton;
     private TextView chosenPizzaTextView;
@@ -49,6 +44,8 @@ public class PizzaCustomizationActivity extends AppCompatActivity
     private String pizzaFlavor;
 
     private ArrayAdapter<Size> spinnerArrayAdapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +75,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity
         spinnerArrayAdapter = new ArrayAdapter<Size>(this,
                 android.R.layout.simple_spinner_dropdown_item, Arrays.asList(Size.values()));
         spinner.setAdapter(spinnerArrayAdapter);
+        spinner.setOnItemSelectedListener(this);
 
         //onclicklistener for listview and spinner
 
@@ -98,34 +96,8 @@ public class PizzaCustomizationActivity extends AppCompatActivity
         updateListView();
 
 
-
-
-
-        //System.out.println(pizzaName);
-
-
-        //pizzaType is used to make new pizza
-
-        //currentOrder.addPizza(new Deluxe());
-        //currentOrder.addPizza(new Hawaiian());
-
-        //set the name
-        //set the imag
-
-
     }
 
-    /*
-    public void selectPizzaSize(View view)
-    {
-
-        Size selectedSize =  (Size) spinner.getSelectedItem();
-        System.out.println(selectedSize);
-        pizza.setSize(selectedSize);
-        setPrice();
-
-    }
-    */
     private void disableEditText(EditText editText) {
         editText.setFocusable(false);
         editText.setEnabled(false);
@@ -136,6 +108,27 @@ public class PizzaCustomizationActivity extends AppCompatActivity
 
 
 
+
+
+    /*
+    public void spinnerControl()
+    {
+        spinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                        Object item = parent.getItemAtPosition(pos);
+                        System.out.println("Hello");
+                        System.out.println(item.toString());     //prints the text in spinner item.
+
+                    }
+                    public void onNothingSelected(AdapterView<?> parent)
+                    {
+                    }
+                });
+    }
+
+     */
 
 
     /**
@@ -168,19 +161,6 @@ public class PizzaCustomizationActivity extends AppCompatActivity
 
         this.selectedToppingsView.setAdapter(adapter);
         this.availableToppingsView.setAdapter(adapter2);
-
-        //selectedToppingsView.setAdapter(adapter);
-
-
-
-        /*
-
-        ObservableList<Topping> selectedToppingsList = FXCollections.observableArrayList(selectedToppings);
-        selectedToppingsListView.setItems(FXCollections.observableList(selectedToppingsList));
-        ObservableList<Topping> additionalToppingsList = FXCollections.observableArrayList(additionalToppings);
-        additionalToppingsListView.setItems(FXCollections.observableList(additionalToppingsList));
-
-         */
     }
 
 
@@ -301,18 +281,16 @@ public class PizzaCustomizationActivity extends AppCompatActivity
     public void addOrder(View view)
     {
         this.currentOrder.addPizza(this.pizza);
-        System.out.println(this.currentOrder.getPizzas().size());
+
         Intent intent = new Intent();
         intent.putExtra("ORDER", currentOrder);
         setResult(RESULT_OK, intent);
+
         Pizza pizza = PizzaMaker.createPizza(this.pizzaFlavor);
         this.pizza = pizza;
         updateListView();
         setPrice();
-
-
-        //myComboBox.setValue(Size.Small);
-
+        spinner.setSelection(0); //remove magic number
         addToOrderAlertBox();
     }
 
@@ -338,6 +316,39 @@ public class PizzaCustomizationActivity extends AppCompatActivity
             return true;
         }
         return false;
+    }
+
+    /**
+     * <p>Callback method to be invoked when an item in this view has been
+     * selected. This callback is invoked only when the newly selected
+     * position is different from the previously selected position or if
+     * there was no selected item.</p>
+     * <p>
+     * Implementers can call getItemAtPosition(position) if they need to access the
+     * data associated with the selected item.
+     *
+     * @param parent   The AdapterView where the selection happened
+     * @param view     The view within the AdapterView that was clicked
+     * @param position The position of the view in the adapter
+     * @param id       The row id of the item that is selected
+     */
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Size selectedSize = (Size) parent.getItemAtPosition(position);
+        pizza.setSize(selectedSize);
+        setPrice();
+    }
+
+    /**
+     * Callback method to be invoked when the selection disappears from this
+     * view. The selection can disappear for instance when touch is activated
+     * or when the adapter becomes empty.
+     *
+     * @param parent The AdapterView that now contains no selected item.
+     */
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
 
