@@ -30,6 +30,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        if(currentOrder != null)
+        {
+            phoneNumber.setText(currentOrder.getPhoneNumber());
+        }
+        System.out.println("Hello on MainActivity on line 37");
     }
 
     public void openPizzaCustomizationActivity(int stringPizzaRid, String pizzaType, int pictureRid)

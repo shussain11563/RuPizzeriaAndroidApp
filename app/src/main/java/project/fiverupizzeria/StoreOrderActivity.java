@@ -37,7 +37,21 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         this.storeOrders = (StoreOrders) intent.getSerializableExtra("STORE_ORDERS");
         spinnerPhoneNumber = findViewById(R.id.spinnerPhoneNumber);
 
+
+
         populatePhoneNumber(); //make no default
+
+        //Order
+
+        //String phoneNumber
+        String phoneNumber = spinnerPhoneNumber.getSelectedItem().toString();
+        //CHECK IF NOT NULL
+        pizzaArrayAdapter = new ArrayAdapter<Pizza>(this, android.R.layout.simple_list_item_1, this.storeOrders.find(phoneNumber).getPizzas());
+        //storeOrderListView.setAdapter(pizzaArrayAdapter);
+        setPhoneNumber(phoneNumber);
+
+
+
         //disableEditText(this.priceStoreActivity);
     }
 
@@ -52,16 +66,15 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         }
 
 
-
         spinnerPhoneNumber = findViewById(R.id.spinnerPhoneNumber);
         spinnerArrayAdapterPhoneNumber = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, phoneNumbers);
         spinnerPhoneNumber.setAdapter(spinnerArrayAdapterPhoneNumber);
         spinnerPhoneNumber.setOnItemSelectedListener(this);
 
-
     }
 
+    //change this
     public void cancelOrder(View view)
     {
         String phoneNumber = (String) this.spinnerPhoneNumber.getSelectedItem();
@@ -89,6 +102,29 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
 
         //set new thing
     }
+/*
+    public void setPhoneNumber(String phoneNum)
+    {
+        this.storeOrderListView.getItems().clear();
+        String phoneNumber = phoneNum;
+        if(phoneNumber != null)
+        {
+            Order order = this.storeOrders.find(phoneNumber);
+            this.storeOrderListView.getItems().clear();
+
+
+
+            ObservableList<Pizza> pizzasList = FXCollections.observableArrayList(order.getPizzas());
+            this.storeOrderListView.setItems(FXCollections.observableList(pizzasList));
+
+            DecimalFormat df = new DecimalFormat("#,##0.00");
+            orderTotalTextArea.setText(df.format(order.getTotalPrice()));
+
+        }
+        //update after removing order
+    }
+
+ */
 
     private void disableEditText(EditText editText) {
         editText.setFocusable(false);
@@ -132,32 +168,35 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
-/*
-    private void setPhoneNumber(String phoneNumber)
-    {
-        this.storeOrderListView.getItems().clear();
-        String phoneNumber = this.customerPhoneNumberComboBox.getSelectionModel().getSelectedItem();
 
+    private void setPhoneNumber(String phoneNum)
+    {
+
+        this.pizzaArrayAdapter.clear();
+        this.pizzaArrayAdapter.notifyDataSetChanged();
+
+        String phoneNumber = phoneNum;
 
         if(phoneNumber != null)
         {
             Order order = this.storeOrders.find(phoneNumber);
-            this.storeOrderListView.getItems().clear();
+
+            this.pizzaArrayAdapter.clear();
+            this.pizzaArrayAdapter.notifyDataSetChanged();
 
 
-
-            ObservableList<Pizza> pizzasList = FXCollections.observableArrayList(order.getPizzas());
-            this.storeOrderListView.setItems(FXCollections.observableList(pizzasList));
+            this.pizzaArrayAdapter.addAll(order.getPizzas());
+            this.pizzaArrayAdapter.notifyDataSetChanged();
 
             DecimalFormat df = new DecimalFormat("#,##0.00");
-            orderTotalTextArea.setText(df.format(order.getTotalPrice()));
+            priceStoreActivity.setText(df.format(order.getTotalPrice()));
 
         }
         //update after removing order
     }
 
 
- */
+
 
     /**
      * <p>Callback method to be invoked when an item in this view has been
@@ -177,7 +216,9 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
         String phoneNumber = (String) parent.getItemAtPosition(position);
-        //setPhoneNumber(phoneNumber);
+
+        //System.out.println(phoneNumber);
+        setPhoneNumber(phoneNumber);
 
     }
 

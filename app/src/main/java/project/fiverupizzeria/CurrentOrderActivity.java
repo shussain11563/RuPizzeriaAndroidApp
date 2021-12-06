@@ -65,6 +65,8 @@ public class CurrentOrderActivity extends AppCompatActivity
 
     }
 
+
+
     private void clear()
     {
         this.salesTaxText.getText().clear();
@@ -76,7 +78,8 @@ public class CurrentOrderActivity extends AppCompatActivity
         disableEditText(orderTotalText);
         disableEditText(phoneNumberOrderActivity);
 
-        this.currentOrder.getPizzas().clear();
+        //this.currentOrder.getPizzas().clear();
+        this.pizzaArrayAdapter.clear();
         this.pizzaArrayAdapter.notifyDataSetChanged();
 
         this.currentOrder = null; //???
@@ -306,4 +309,6 @@ public class CurrentOrderActivity extends AppCompatActivity
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
+
+
 }

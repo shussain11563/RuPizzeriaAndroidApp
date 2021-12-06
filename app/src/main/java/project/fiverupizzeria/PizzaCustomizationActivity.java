@@ -35,7 +35,11 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
     //remove edittext and change to textview
     private EditText priceTextArea;
 
+
+
     private ArrayAdapter<Size> spinnerArrayAdapter;
+
+
 
 
     @Override
@@ -112,6 +116,9 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
             }
         });
     }
+
+
+
 
 
     public void removeToppings(Topping topping)
