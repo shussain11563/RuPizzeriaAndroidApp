@@ -1,16 +1,21 @@
 package project.fiverupizzeria;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.view.View;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -264,6 +269,20 @@ public class PizzaCustomizationActivity extends AppCompatActivity
         AlertDialog dialog = alert.create();
         dialog.show();
     }
+    /**
+     * Shows toast box when order has been added
+     */
+    public void showAddedToOrderToast() {
+        Context context = getApplicationContext();
+        CharSequence text = "Added Pizza to Order";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+
+
+
 
     /**
      * Checks whether a topping is essential for a Deluxe Pizza.

@@ -1,5 +1,6 @@
 package project.fiverupizzeria;
 
+import android.content.Context;
 import android.content.Intent;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -184,4 +186,16 @@ public class CurrentOrderActivity extends AppCompatActivity
 
 
      */
+
+    /**
+     * Shows toast box when order has been placed
+     */
+    public void showOrderIsPlacedToast() {
+        Context context = getApplicationContext();
+        CharSequence text = "Order is Placed";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
 }

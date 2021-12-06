@@ -45,19 +45,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.115" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="120dp"
-        android:layout_height="75dp"
-        android:text="@string/removeSelectedPizzaButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.914"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.367"
-        tools:text="@string/removeSelectedPizzaButton" />
-
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
@@ -156,14 +143,15 @@
         app:layout_constraintVertical_bias="0.871" />
 
     <ListView
-            android:layout_width="372dp"
-            android:layout_height="347dp"
-            android:background="@android:color/transparent"
-            android:cacheColorHint="#00000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.41"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.302" android:id="@+id/orderListView"/>
+        android:id="@+id/orderListView"
+        android:layout_width="348dp"
+        android:layout_height="353dp"
+        android:background="@android:color/transparent"
+        android:cacheColorHint="#00000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.269"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.291" />
 </androidx.constraintlayout.widget.ConstraintLayout>
