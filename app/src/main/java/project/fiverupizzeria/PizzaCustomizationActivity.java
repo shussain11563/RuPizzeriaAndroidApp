@@ -19,17 +19,15 @@ import java.util.Arrays;
 
 public class PizzaCustomizationActivity extends AppCompatActivity implements OnItemSelectedListener
 {
+    private Order currentOrder;
+    private StoreOrders storeOrders;
+    private Pizza pizza;
+    private String pizzaFlavor;
     private ImageButton imageButton;
     private TextView chosenPizzaTextView;
-
-    private ArrayAdapter<Topping> adapter;
-    private ArrayAdapter<Topping> adapter2;
-
+    private ArrayAdapter<Topping> selectedToppingsAdapter;
+    private ArrayAdapter<Topping> additionalToppingsAdapter;
     private Spinner spinner;
-
-    //private Arr
-
-
     private ListView availableToppingsView;
     private ListView selectedToppingsView;
 
@@ -37,16 +35,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
     //remove edittext and change to textview
     private EditText priceTextArea;
 
-    private Order currentOrder;
-
-    private Pizza pizza;
-
-    private String pizzaFlavor;
-
     private ArrayAdapter<Size> spinnerArrayAdapter;
-
-    private StoreOrders storeOrders;
-
 
 
     @Override
@@ -95,10 +84,67 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         selectedToppingsView = findViewById(R.id.selectedToppingsView);
         availableToppingsView = findViewById(R.id.additionalToppingsView);
 
+
         //change order
         updateListView();
 
 
+
+        availableToppingsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Topping topping = (Topping) availableToppingsView.getItemAtPosition(position);
+                addToppings(topping);
+                System.out.println(topping);
+
+            }
+        });
+
+        selectedToppingsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Topping topping = (Topping) selectedToppingsView.getItemAtPosition(position);
+                System.out.println(topping);
+                removeToppings(topping);
+                //removeSelectedPizza((Pizza) orderListView.getItemAtPosition(position));
+            }
+        });
+    }
+
+
+    public void removeToppings(Topping topping)
+    {
+        if(topping != null)
+        {
+            if(selectedToppingsView.getAdapter().getCount() > 0) //orderListView.getAdapter().getCount() > 0
+            {
+                if(pizzaFlavor.equals("Deluxe Pizza")) {
+                    if(checkDeluxeToppings(topping)) {
+                        showConfirmationRemoveEssentialToppings(topping);
+                    }else {
+                        callRemoveToppings(topping);
+                    }
+                } else if(pizzaFlavor.equals("Hawaiian Pizza")) {
+                    if(checkHawaiianToppings(topping)) {
+                        showConfirmationRemoveEssentialToppings(topping);
+                    }else {
+                        callRemoveToppings(topping);
+                    }
+
+                } else if(pizzaFlavor.equals("Pepperoni Pizza")) {
+                    if(checkPepperoniToppings(topping)) {
+                        showConfirmationRemoveEssentialToppings(topping);
+                    }else {
+                        callRemoveToppings(topping);
+                    }
+                }
+            }
+            else if(selectedToppingsView.getAdapter().getCount() <= 0) {
+                showConfirmationNoToppingsOnPizza();
+            }
+        }
     }
 
     private void disableEditText(EditText editText) {
@@ -159,11 +205,13 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         allToppings.removeAll(selectedToppings);
         ArrayList<Topping> additionalToppings = allToppings;
 
-        adapter = new ArrayAdapter<Topping>(this, android.R.layout.simple_list_item_1, selectedToppings);
-        adapter2 = new ArrayAdapter<Topping>(this, android.R.layout.simple_list_item_1, additionalToppings);
+        selectedToppingsAdapter = new ArrayAdapter<Topping>(this, android.R.layout.simple_list_item_1, selectedToppings);
+        additionalToppingsAdapter = new ArrayAdapter<Topping>(this, android.R.layout.simple_list_item_1, additionalToppings);
 
-        this.selectedToppingsView.setAdapter(adapter);
-        this.availableToppingsView.setAdapter(adapter2);
+        this.selectedToppingsView.setAdapter(selectedToppingsAdapter);
+        this.availableToppingsView.setAdapter(additionalToppingsAdapter);
+
+        //might have to update adapter
     }
 
 
@@ -188,15 +236,24 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         dialog.show();
     }
 
-    private void callRemoveToppings()
-    {
+    public void callRemoveToppings(Topping toppingObj) {
+        Topping topping = toppingObj;
 
+        additionalToppingsAdapter.add(topping);
+        selectedToppingsAdapter.remove(topping);
+        additionalToppingsAdapter.notifyDataSetChanged();
+        selectedToppingsAdapter.notifyDataSetChanged();
+
+        this.pizza.removeTopping(topping);
+        setPrice();
     }
+
+
 
     /**
      * Shows alert box regarding removing an essential topping.
      */
-    public void showConfirmationRemoveEssentialToppings() {
+    public void showConfirmationRemoveEssentialToppings(Topping topping) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Warning with Removing Toppings");
         alert.setMessage("You are removing essential toppings");
@@ -204,7 +261,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                callRemoveToppings();
+                callRemoveToppings(topping);
             }
         });
 
@@ -233,6 +290,37 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
 
         AlertDialog dialog = alert.create();
         dialog.show();
+    }
+
+    void addToppings(Topping topping)
+    {
+        if(topping != null)
+        {
+            if(selectedToppingsView.getAdapter().getCount() < Pizza.MAX_TOPPINGS)
+            {
+
+                additionalToppingsAdapter.remove(topping);
+                selectedToppingsAdapter.add(topping);
+                additionalToppingsAdapter.notifyDataSetChanged();
+                selectedToppingsAdapter.notifyDataSetChanged();
+                this.pizza.addTopping(topping);
+                setPrice();
+
+                /**
+                 *         additionalToppingsAdapter.add(topping);
+                 *         selectedToppingsAdapter.remove(topping);
+                 *         additionalToppingsAdapter.notifyDataSetChanged();
+                 *         selectedToppingsAdapter.notifyDataSetChanged();
+                 */
+
+            }
+            else
+            {
+                showMaxToppingsOnPizza();
+
+            }
+
+        }
     }
 
     /**
@@ -285,6 +373,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
     {
         this.currentOrder.addPizza(this.pizza);
 
+        showAddedToOrderToast();
         Intent intent = new Intent();
         intent.putExtra("ORDER", currentOrder);
         intent.putExtra("STORE_ORDERS", this.storeOrders);
@@ -296,6 +385,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         setPrice();
         spinner.setSelection(0); //remove magic number
         addToOrderAlertBox();
+
     }
 
     /**
@@ -354,5 +444,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+
 }
 
