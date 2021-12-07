@@ -79,15 +79,19 @@ public class CurrentOrderActivity extends AppCompatActivity
         disableEditText(phoneNumberOrderActivity);
 
         //this.currentOrder.getPizzas().clear();
+
         this.pizzaArrayAdapter.clear();
         this.pizzaArrayAdapter.notifyDataSetChanged();
-
         this.currentOrder = null; //???
 
         Intent intent = new Intent();
-        intent.putExtra("ORDER", this.currentOrder);
         intent.putExtra("STORE_ORDERS", this.storeOrders);
+        intent.putExtra("ORDER", this.currentOrder);
         setResult(RESULT_OK, intent);
+
+        //this.pizzaArrayAdapter.clear();
+        //this.pizzaArrayAdapter.notifyDataSetChanged();
+        //this.currentOrder = null; //???
     }
 
 
@@ -223,9 +227,24 @@ public class CurrentOrderActivity extends AppCompatActivity
 
     private void addToStoreOrder()
     {
-        this.storeOrders.addOrder(this.currentOrder);
+
+        Order order = copy(this.currentOrder);
+        this.storeOrders.addOrder(order);
         showOrderIsPlacedToast();
         clear();
+    }
+
+    private Order copy(Order copyThis)
+    {
+        Order order = new Order(copyThis.getPhoneNumber());
+        order.setTotalPrice(copyThis.getTotalPrice());
+
+        for(int i = 0; i < copyThis.getPizzas().size(); i++)
+        {
+            order.addPizza(copyThis.getPizzas().get(i));
+        }
+
+        return order;
     }
 
     private void errorNoCurrentOrderAlert() {

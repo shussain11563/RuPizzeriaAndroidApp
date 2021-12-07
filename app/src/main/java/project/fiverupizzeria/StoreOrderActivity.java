@@ -19,6 +19,8 @@ import java.util.Arrays;
 public class StoreOrderActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
     private StoreOrders storeOrders;
+    private Order currentOrderTemp;
+    private Order currentOrder;
     private Spinner spinnerPhoneNumber;
     private ListView storeOrderListView;
     private ArrayAdapter<String> spinnerArrayAdapterPhoneNumber;
@@ -35,44 +37,80 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
 
         Intent intent = getIntent();
         this.storeOrders = (StoreOrders) intent.getSerializableExtra("STORE_ORDERS");
+        this.currentOrderTemp = (Order) intent.getSerializableExtra("ORDER");
         spinnerPhoneNumber = findViewById(R.id.spinnerPhoneNumber);
 
 
-
-        populatePhoneNumber(); //make no default
+        //populatePhoneNumber(); //make no default
 
         //Order
 
         //String phoneNumber
-        String phoneNumber = spinnerPhoneNumber.getSelectedItem().toString();
+        spinnerArrayAdapterPhoneNumber = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, phoneNumbers());
+        spinnerPhoneNumber.setAdapter(spinnerArrayAdapterPhoneNumber);
+        spinnerPhoneNumber.setOnItemSelectedListener(this);
+
+
+        String phoneNumber = "";
+        if(spinnerPhoneNumber.getSelectedItem() != null)
+        {
+            System.out.println(" NOT ERROR");
+            phoneNumber = spinnerPhoneNumber.getSelectedItem().toString();
+        }
+
         //CHECK IF NOT NULL
-        pizzaArrayAdapter = new ArrayAdapter<Pizza>(this, android.R.layout.simple_list_item_1, this.storeOrders.find(phoneNumber).getPizzas());
-        //storeOrderListView.setAdapter(pizzaArrayAdapter);
-        setPhoneNumber(phoneNumber);
+
+        System.out.println(this.storeOrders.find(phoneNumber).getPizzas().size());
+
+        Order orderCopy = copy(this.storeOrders.find(phoneNumber));
+        pizzaArrayAdapter = new ArrayAdapter<Pizza>(this, android.R.layout.simple_list_item_1, orderCopy.getPizzas());
+        storeOrderListView.setAdapter(pizzaArrayAdapter);
+        System.out.println("Hello on line 51");
+
+
+        //setPhoneNumber(phoneNumber);
 
 
 
         //disableEditText(this.priceStoreActivity);
+
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Intent intent = new Intent();
+        intent.putExtra("ORDER", currentOrder);
+        intent.putExtra("STORE_ORDERS", this.storeOrders);
+        setResult(RESULT_OK, intent);
+    }
+
+
+
 
     private void populatePhoneNumber()
     {
+        ArrayList<String> phoneNumbers = phoneNumbers();
+
+        this.spinnerArrayAdapterPhoneNumber.clear();
+        this.spinnerArrayAdapterPhoneNumber.addAll(phoneNumbers);
+
+    }
+
+    private ArrayList<String> phoneNumbers()
+    {
         ArrayList<String> phoneNumbers = new ArrayList<String>();
         ArrayList<Order> orders = this.storeOrders.getOrders();
-
         for(int i = 0; i < orders.size(); i++)
         {
             phoneNumbers.add(orders.get(i).getPhoneNumber());
         }
 
-
-        spinnerPhoneNumber = findViewById(R.id.spinnerPhoneNumber);
-        spinnerArrayAdapterPhoneNumber = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item, phoneNumbers);
-        spinnerPhoneNumber.setAdapter(spinnerArrayAdapterPhoneNumber);
-        spinnerPhoneNumber.setOnItemSelectedListener(this);
-
+        return phoneNumbers;
     }
+
+
 
     //change this
     public void cancelOrder(View view)
@@ -80,23 +118,41 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         String phoneNumber = (String) this.spinnerPhoneNumber.getSelectedItem();
         System.out.println("Cancel Ordering Test " + phoneNumber);
 
-        Order order = storeOrders.find(phoneNumber);
+        Order order = copy(storeOrders.find(phoneNumber));
         if(order!=null)
         {
             storeOrders.removeOrder(storeOrders.find(phoneNumber));
+            Intent intent = new Intent();
+            intent.putExtra("ORDER", currentOrder);
+            intent.putExtra("STORE_ORDERS", this.storeOrders);
+            setResult(RESULT_OK, intent);
         }
         else
         {
             errorCannotCancelOrder();
         }
 
+        this.spinnerArrayAdapterPhoneNumber.remove(phoneNumber); //removes from spinner
+
+        populatePhoneNumber();
+        this.pizzaArrayAdapter.clear();
+        this.pizzaArrayAdapter.notifyDataSetChanged();
+
+        order = copy(this.storeOrders.find((String) this.spinnerPhoneNumber.getSelectedItem()));
+        if(order != null)
+        {
+            this.pizzaArrayAdapter.addAll(order.getPizzas());
+            this.pizzaArrayAdapter.notifyDataSetChanged();
+        }
+
         //this.storeOrderListView.
         //this.storeOrderListView.getItems().clear();
 
-        populatePhoneNumber();
+
+
         this.priceStoreActivity.getText().clear();
         disableEditText(this.priceStoreActivity);
-        //this.orderTotalTextArea.clear();
+
 
         //update
 
@@ -169,30 +225,56 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         toast.show();
     }
 
+    private Order copy(Order copyThis)
+    {
+        if(copyThis == null)
+        {
+            return null;
+        }
+        Order order = new Order(copyThis.getPhoneNumber());
+        order.setTotalPrice(copyThis.getTotalPrice());
+
+        for(int i = 0; i < copyThis.getPizzas().size(); i++)
+        {
+            order.addPizza(copyThis.getPizzas().get(i));
+        }
+
+        return order;
+    }
+
     private void setPhoneNumber(String phoneNum)
     {
 
-        this.pizzaArrayAdapter.clear();
-        this.pizzaArrayAdapter.notifyDataSetChanged();
+        //this.pizzaArrayAdapter.clear();
+        //this.pizzaArrayAdapter.notifyDataSetChanged();
 
         String phoneNumber = phoneNum;
 
         if(phoneNumber != null)
         {
-            Order order = this.storeOrders.find(phoneNumber);
-
+            //Order order = this.storeOrders.find(phoneNumber);
+            Order order = copy(this.storeOrders.find(phoneNumber));
+            System.out.println(phoneNumber + " : "+ order.getPizzas().size());
             this.pizzaArrayAdapter.clear();
             this.pizzaArrayAdapter.notifyDataSetChanged();
 
-
+            System.out.println(phoneNumber + " : "+ order.getPizzas().size());
+            //this.pizzaArrayAdapter
             this.pizzaArrayAdapter.addAll(order.getPizzas());
             this.pizzaArrayAdapter.notifyDataSetChanged();
+            System.out.println(phoneNumber + " : "+ order.getPizzas().size());
 
             DecimalFormat df = new DecimalFormat("#,##0.00");
             priceStoreActivity.setText(df.format(order.getTotalPrice()));
 
         }
         //update after removing order
+    }
+
+    private void reloadList()
+    {
+        //pizzaArrayAdapter.
+
     }
 
 
@@ -216,8 +298,7 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
         String phoneNumber = (String) parent.getItemAtPosition(position);
-
-        //System.out.println(phoneNumber);
+        System.out.println(phoneNumber + " " + storeOrders.find(phoneNumber).getPizzas().size() + " in onItemSelected()");
         setPhoneNumber(phoneNumber);
 
     }
