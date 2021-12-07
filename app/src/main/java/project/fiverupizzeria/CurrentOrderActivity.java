@@ -14,9 +14,15 @@ import android.os.Bundle;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * CurrentOrderAcitivty is a class that handles all the events driven by the I/O in the application
+ * involving Store Orders.
+ * @author Sharia Hussain, David Lam
+ */
 
 public class CurrentOrderActivity extends AppCompatActivity
 {
+
     private Order currentOrder;
     private StoreOrders storeOrders;
     private ListView orderListView;
@@ -25,9 +31,13 @@ public class CurrentOrderActivity extends AppCompatActivity
     private double orderTotal;
     private double subtotal;
     EditText subtotalText, salesTaxText, orderTotalText;
-
     EditText phoneNumberOrderActivity;
 
+    /**
+     * When an Activty is first created, it calls onCreate which sets all default activities
+     * @param savedInstanceState a reference to a Bundle object that is passed into the
+     * onCreate method of every Android Activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +52,6 @@ public class CurrentOrderActivity extends AppCompatActivity
         salesTaxText = findViewById(R.id.salesTaxText);
         orderTotalText = findViewById(R.id.orderTotalText);
 
-
-
-
-
         phoneNumberOrderActivity = findViewById(R.id.phoneNumberOrderActivity);
         //phoneNumberOrderActivity.setText(this.currentOrder.getPhoneNumber());
 
@@ -59,14 +65,13 @@ public class CurrentOrderActivity extends AppCompatActivity
             }
         });
 
-
         processCost();
         updatePrices();
-
     }
 
-
-
+    /**
+     * Clears all necessary Data and Text for the user
+     */
     private void clear()
     {
         this.salesTaxText.getText().clear();
@@ -90,7 +95,9 @@ public class CurrentOrderActivity extends AppCompatActivity
         setResult(RESULT_OK, intent);
     }
 
-
+    /**
+     * Calls Remove Pizza in the Order Class
+     */
     public void callRemovePizza(Pizza pizzaObj) {
         Pizza pizza = pizzaObj;
         pizzaArrayAdapter.remove(pizza);
@@ -98,11 +105,9 @@ public class CurrentOrderActivity extends AppCompatActivity
         this.currentOrder.removePizza(pizza);
     }
 
-
-
-
-    //onresume, we reupdate the arrayadapter
-
+    /**
+     * Method that calls all the cost related methods
+     */
     private void processCost() {
         calculateSubtotal();
         calculateSalesTax();
@@ -116,11 +121,18 @@ public class CurrentOrderActivity extends AppCompatActivity
         this.salesTax = (Pizza.SALES_TAX_RATE/100) * subtotal;
     }
 
+    /**
+     * Converts a double value to a string Price
+     * @param value double value to be convert to string in decimal formace
+     */
     public String priceToString(double value) {
         DecimalFormat df = new DecimalFormat("#,##0.00");
         return String.format("$%s", df.format(value));
     }
 
+    /**
+     * Updates the prices in the TextAreas
+     */
     private void updatePrices() {
         setPhoneNumberTextArea(this.currentOrder.getPhoneNumber());
         setSubtotalTextArea(priceToString(subtotal));
@@ -128,17 +140,20 @@ public class CurrentOrderActivity extends AppCompatActivity
         setOrderTotalTextArea(priceToString(orderTotal));
     }
 
-    public void setPhoneNumberTextArea(String phoneNumber)
-    {
+    /**
+     * Sets the Phone Number Text Area
+     */
+    public void setPhoneNumberTextArea(String phoneNumber) {
         phoneNumberOrderActivity.setText(phoneNumber);
         disableEditText(phoneNumberOrderActivity);
-        //disable text
     }
 
+    /**
+     * Sets the SubTotal TextArea
+     */
     public void setSubtotalTextArea(String subtotal) {
         subtotalText.setText(subtotal);
         disableEditText(subtotalText);
-        //disable text
     }
 
     /**
@@ -193,12 +208,17 @@ public class CurrentOrderActivity extends AppCompatActivity
 
 
 
-
-    public void placeOrder(View view)
-    {
+    /**
+     * Calls the Method to confirm the order
+     * @param view the view of the android activity
+     */
+    public void placeOrder(View view) {
         showConfirmationForOrderToBePlaced();
     }
 
+    /**
+     * Alert box to show a confirmation when the order is to be placed
+     */
     public void showConfirmationForOrderToBePlaced()
     {
         if(this.currentOrder != null && this.currentOrder.getPizzas().size() > 0) {
@@ -221,6 +241,10 @@ public class CurrentOrderActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Method to add Current Order to Store Orders, calls a toast to
+     * show adding and clears the Text Areas
+     */
     private void addToStoreOrder()
     {
         this.storeOrders.addOrder(this.currentOrder);
@@ -228,6 +252,9 @@ public class CurrentOrderActivity extends AppCompatActivity
         clear();
     }
 
+    /**
+     * Alert box when there is no Current Order to be Placed
+     */
     private void errorNoCurrentOrderAlert() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Error with Current Order");
@@ -243,8 +270,10 @@ public class CurrentOrderActivity extends AppCompatActivity
         dialog.show();
     }
 
-    //Everything below here is not done
-
+    /**
+     * Method that removes the selected pizza and recalculates costs and prices.
+     * @param pizza the pizza object to be removed
+     */
     private void removeSelectedPizza(Pizza pizza)
     {
         if(pizza != null) {
@@ -262,6 +291,9 @@ public class CurrentOrderActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Alert box when no pizza is selected
+     */
     public void showNoPizzasSelected() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Warning with Removing Pizzas From Order");
@@ -277,6 +309,9 @@ public class CurrentOrderActivity extends AppCompatActivity
         dialog.show();
     }
 
+    /**
+     * Alert box when removing the last pizza
+     */
     public void showNoPizzasInOrder() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Warning with Removing Pizzas From Order");
@@ -292,12 +327,6 @@ public class CurrentOrderActivity extends AppCompatActivity
         dialog.show();
     }
 
-
-
-
-
-
-
     /**
      * Shows toast box when order has been placed
      */
@@ -309,6 +338,4 @@ public class CurrentOrderActivity extends AppCompatActivity
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
-
-
 }
