@@ -37,6 +37,8 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
     private Spinner spinner;
     private ListView availableToppingsView;
     private ListView selectedToppingsView;
+    private EditText priceTextArea;
+    private ArrayAdapter<Size> spinnerArrayAdapter;
 
     @Override
     protected void onStop() {
@@ -46,16 +48,6 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         intent.putExtra("STORE_ORDERS", this.storeOrders);
         setResult(RESULT_OK, intent);
     }
-
-    //remove edittext and change to textview
-    private EditText priceTextArea;
-
-
-
-    private ArrayAdapter<Size> spinnerArrayAdapter;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,41 +61,28 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         this.pizzaFlavor = intent.getStringExtra("PIZZA_TYPE");
         int pizzaPictureRid = intent.getIntExtra("PIZZA_IMAGE", 0); //MAGIC NUMBER, MAKE NOT FOUND AND CHANE TO -1
 
-
-
         chosenPizzaTextView = findViewById(R.id.chosenPizzaTextView);
         chosenPizzaTextView.setText(pizzaName);
 
         imageButton = findViewById(R.id.imageButton);
         imageButton.setImageResource(pizzaPictureRid);
 
-        //
         this.spinner = findViewById(R.id.spinner);
         spinnerArrayAdapter = new ArrayAdapter<Size>(this,
                 android.R.layout.simple_spinner_dropdown_item, Arrays.asList(Size.values()));
         spinner.setAdapter(spinnerArrayAdapter);
         spinner.setOnItemSelectedListener(this);
 
-        //onclicklistener for listview and spinner
-
         Pizza pizza = PizzaMaker.createPizza(pizzaFlavor); //null
-
         this.pizza = pizza;
 
-
         this.priceTextArea = findViewById(R.id.priceTextArea);
-
         setPrice();
-
 
         selectedToppingsView = findViewById(R.id.selectedToppingsView);
         availableToppingsView = findViewById(R.id.additionalToppingsView);
 
-
-        //change order
         updateListView();
-
-
 
         availableToppingsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -124,10 +103,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
             }
         });
 
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
     }
 
     /**
