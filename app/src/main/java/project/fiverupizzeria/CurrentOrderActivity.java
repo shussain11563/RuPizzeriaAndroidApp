@@ -341,9 +341,11 @@ public class CurrentOrderActivity extends AppCompatActivity
      * Method that removes the selected pizza and recalculates costs and prices.
      * @param pizza the pizza object to be removed
      */
-    private void removeSelectedPizza(Pizza pizza) {
+    private void removeSelectedPizza(Pizza pizza)
+    {
+        int none = 0;
         if(pizza != null) {
-            if(orderListView.getAdapter().getCount() > 0) {
+            if(orderListView.getAdapter().getCount() > none) {
                 callRemovePizza(pizza);
             }
             else {
