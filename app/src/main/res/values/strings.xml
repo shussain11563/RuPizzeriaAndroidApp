@@ -22,4 +22,18 @@
     <string name="PepperoniPizza">Pepperoni Pizza</string>
 
 
+    <string name="OK">OK</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="ClickToContinueOrder">Click to Continue with Order</string>
+    <string name="errorDuplicatePhoneNumberTitle">Error with Phone Number</string>
+    <string name="errorDuplicatePhoneNumberMessage">Phone Number Has Already Ordered</string>
+
+    <string name="errorInvalidPhoneNumberAlertTitle">Error with Phone Number</string>
+    <string name="errorInvalidPhoneNumberAlertMessage">Phone Number Not Valid</string>
+    <string name="errorNoCurrentOrderAlertTitle">Error with Current Order</string>
+    <string name="errorNoCurrentOrderAlertMessage">There is no current order.</string>
+
+    
+
+
 </resources>
