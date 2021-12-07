@@ -69,11 +69,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         this.pizzaFlavor = intent.getStringExtra("PIZZA_TYPE");
         int pizzaPictureRid = intent.getIntExtra("PIZZA_IMAGE", 0); //MAGIC NUMBER, MAKE NOT FOUND AND CHANE TO -1
 
-        //change from simple list item to somehhing
-       ;
-        /*
-        IF RID == NOT FOUND, ERROR MESSAGE?!?!?!
-         */
+
 
         chosenPizzaTextView = findViewById(R.id.chosenPizzaTextView);
         chosenPizzaTextView.setText(pizzaName);
@@ -134,6 +130,11 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
 
     }
 
+    /**
+     * Links the back button of Android to the back button in the app
+     * @param item MenuItem to interact
+     * @return true if clicked, otherwise false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -145,15 +146,19 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Method for Back Button Function
+     * @param menu menu button
+     * @return boolean
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
 
-
-
-
-
-
+    /**
+     * Removes Toppings from ListView
+     * @param topping topping to be removed
+     */
     public void removeToppings(Topping topping)
     {
         if(topping != null)
@@ -187,6 +192,10 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         }
     }
 
+    /**
+     * Disables EditText
+     * @param editText
+     */
     private void disableEditText(EditText editText) {
         editText.setFocusable(false);
         editText.setEnabled(false);
@@ -205,13 +214,9 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         disableEditText(this.priceTextArea);
     }
 
-    //ondestory/onstop
-
-
-
-
-
-
+    /**
+     * Updates the ListView
+     */
     private void updateListView()
     {
 
@@ -251,6 +256,10 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         dialog.show();
     }
 
+    /**
+     * Removes Toppings from Pizza
+     * @param toppingObj Topping to Remove
+     */
     public void callRemoveToppings(Topping toppingObj) {
         Topping topping = toppingObj;
 
@@ -262,7 +271,6 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         this.pizza.removeTopping(topping);
         setPrice();
     }
-
 
 
     /**
@@ -307,6 +315,10 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         dialog.show();
     }
 
+    /**
+     * Add Toppings to ListView
+     * @param topping
+     */
     void addToppings(Topping topping)
     {
         if(topping != null)
@@ -320,13 +332,6 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
                 selectedToppingsAdapter.notifyDataSetChanged();
                 this.pizza.addTopping(topping);
                 setPrice();
-
-                /**
-                 *         additionalToppingsAdapter.add(topping);
-                 *         selectedToppingsAdapter.remove(topping);
-                 *         additionalToppingsAdapter.notifyDataSetChanged();
-                 *         selectedToppingsAdapter.notifyDataSetChanged();
-                 */
 
             }
             else
@@ -368,8 +373,6 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
     }
 
 
-
-
     /**
      * Checks whether a topping is essential for a Deluxe Pizza.
      * @param selectedItem the topping that is either essential or not.
@@ -384,6 +387,10 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         return false;
     }
 
+    /**
+     * Adds Pizza to Order.
+     * @param view View of Activity
+     */
     public void addOrder(View view)
     {
         this.currentOrder.addPizza(this.pizza);
