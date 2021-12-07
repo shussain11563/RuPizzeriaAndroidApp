@@ -114,6 +114,10 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
 
         this.spinnerArrayAdapterPhoneNumber.clear();
         this.spinnerArrayAdapterPhoneNumber.addAll(phoneNumbers);
+        if(spinnerPhoneNumber.getAdapter().getCount() >=0)
+        {
+            spinnerPhoneNumber.setSelection(0);
+        }
 
     }
 
@@ -163,11 +167,6 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         {
             order = copy(this.storeOrders.find((String) this.spinnerPhoneNumber.getSelectedItem()));
         }
-        else
-        {
-            order = null;
-        }
-
 
 
         if(order != null) {
