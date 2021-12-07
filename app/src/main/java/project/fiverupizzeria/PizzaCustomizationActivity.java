@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -46,6 +48,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
 
 
     private ArrayAdapter<Size> spinnerArrayAdapter;
+
 
 
 
@@ -120,7 +123,28 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
                 //removeSelectedPizza((Pizza) orderListView.getItemAtPosition(position));
             }
         });
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
 
 
 
