@@ -202,7 +202,7 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         alert.setTitle(R.string.errorCannotCancelOrderTitle);
         alert.setMessage(R.string.errorCannotCancelOrderMessage);
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -218,10 +218,9 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
      */
     public void showOrderIsCancelledToast() {
         Context context = getApplicationContext();
-        CharSequence text = "Order is Cancelled";
         int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast.makeText(context, text, duration);
+        Toast toast = Toast.makeText(context, R.string.showOrderIsCancelledToast, duration);
         toast.show();
     }
 
@@ -230,10 +229,9 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
      */
     public void showCannotCancelToast() {
         Context context = getApplicationContext();
-        CharSequence text = "Cannot Cancel Order";
         int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast.makeText(context, text, duration);
+        Toast toast = Toast.makeText(context, R.string.showCannotCancelToast, duration);
         toast.show();
     }
 

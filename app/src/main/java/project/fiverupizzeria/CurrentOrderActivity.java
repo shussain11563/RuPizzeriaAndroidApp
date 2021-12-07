@@ -268,7 +268,7 @@ public class CurrentOrderActivity extends AppCompatActivity
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle(R.string.confirmationForOrderToBePlaceAlertTitle);
             alert.setMessage(R.string.confirmationForOrderToBePlaceAlertMessage);
-            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which)
                 {
@@ -291,7 +291,7 @@ public class CurrentOrderActivity extends AppCompatActivity
         alert.setTitle(R.string.errorNoCurrentOrderAlertTitle);
         alert.setMessage(R.string.errorNoCurrentOrderAlertMessage);
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -309,7 +309,7 @@ public class CurrentOrderActivity extends AppCompatActivity
         alert.setTitle(R.string.showNoPizzasSelectedTitle);
         alert.setMessage(R.string.showNoPizzasSelectedMessage);
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -327,7 +327,7 @@ public class CurrentOrderActivity extends AppCompatActivity
         alert.setTitle(R.string.showNoPizzasInOrderTitle);
         alert.setMessage(R.string.showNoPizzasInOrderMessage);
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -364,10 +364,9 @@ public class CurrentOrderActivity extends AppCompatActivity
      */
     public void showOrderIsPlacedToast() {
         Context context = getApplicationContext();
-        CharSequence text = "Order is Placed";
         int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast.makeText(context, text, duration);
+        Toast toast = Toast.makeText(context, R.string.showOrderIsPlacedToast, duration);
         toast.show();
     }
 }
