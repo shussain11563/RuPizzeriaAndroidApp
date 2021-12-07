@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -45,9 +47,15 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         setResult(RESULT_OK, intent);
     }
 
+    //remove edittext and change to textview
     private EditText priceTextArea;
 
+
+
     private ArrayAdapter<Size> spinnerArrayAdapter;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +127,28 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
                 //removeSelectedPizza((Pizza) orderListView.getItemAtPosition(position));
             }
         });
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
 
 
 
@@ -176,6 +205,13 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         disableEditText(this.priceTextArea);
     }
 
+    //ondestory/onstop
+
+
+
+
+
+
     private void updateListView()
     {
 
@@ -194,6 +230,27 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
     }
 
 
+
+    /**
+     * Method that alerts users that their pizza is added to their order.
+     */
+    public void addToOrderAlertBox() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Added to Order");
+        alert.setMessage("Order has been added.");
+
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+            }
+        });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+
     public void callRemoveToppings(Topping toppingObj) {
         Topping topping = toppingObj;
 
@@ -207,25 +264,6 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
     }
 
 
-    /**
-     * Method that alerts users that their pizza is added to their order.
-     */
-    public void addToOrderAlertBox() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle(R.string.addToOrderAlertBoxTitle);
-        alert.setMessage(R.string.addToOrderAlertBoxMessage);
-
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-
-            }
-        });
-
-        AlertDialog dialog = alert.create();
-        dialog.show();
-    }
 
     /**
      * Shows alert box regarding removing an essential topping.
