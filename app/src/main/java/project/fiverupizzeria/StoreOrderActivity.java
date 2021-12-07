@@ -15,6 +15,11 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * RuPizzaStoreOrderController is a class that handles all the events driven by the I/O in the application
+ * involving Store Orders.
+ * @author Sharia Hussain, David Lam
+ */
 
 public class StoreOrderActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
@@ -27,6 +32,11 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     private ArrayAdapter<Pizza> pizzaArrayAdapter;
     EditText priceStoreActivity;
 
+    /**
+     * When an Activty is first created, it calls onCreate which sets all default activities
+     * @param savedInstanceState a reference to a Bundle object that is passed into the
+     * onCreate method of every Android Activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +87,7 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
 
     }
 
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -88,6 +99,11 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
 
 
 
+
+
+    /**
+     * Populates the spinners with Phone Numbers
+     */
 
     private void populatePhoneNumber()
     {
@@ -112,7 +128,13 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
 
 
 
-    //change this
+
+
+
+    /**
+     * Method that cancels the order
+     * @param view the view of the android activity
+     */
     public void cancelOrder(View view)
     {
         String phoneNumber = (String) this.spinnerPhoneNumber.getSelectedItem();
@@ -181,7 +203,10 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     }
 
  */
-
+    /**
+     * Disables the text to be edited
+     * @param editText text to be edited
+     */
     private void disableEditText(EditText editText) {
         editText.setFocusable(false);
         editText.setEnabled(false);
@@ -189,10 +214,6 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         editText.setKeyListener(null);
         editText.setBackgroundColor(Color.TRANSPARENT);
     }
-
-
-
-
 
     /**
      * Alert box when there is no Current Order to be cancelled
@@ -225,6 +246,7 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         toast.show();
     }
 
+
     private Order copy(Order copyThis)
     {
         if(copyThis == null)
@@ -241,6 +263,12 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
 
         return order;
     }
+
+
+    /**
+     * Sets the phone number
+     * @param phoneNum string of the phone number
+     */
 
     private void setPhoneNumber(String phoneNum)
     {

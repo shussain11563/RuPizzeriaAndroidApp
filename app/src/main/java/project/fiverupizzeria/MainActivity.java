@@ -12,12 +12,22 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
+/**
+ * RuPizzeriaController is a class that handles all the events driven by the I/O in the application.
+ * @author Sharia Hussain, David Lam
+ */
+
 public class MainActivity extends AppCompatActivity
 {
     private EditText phoneNumber;
     public static StoreOrders storeOrders;
     public static Order currentOrder;
 
+    /**
+     * When an Activty is first created, it calls onCreate which sets all default activities
+     * @param savedInstanceState a reference to a Bundle object that is passed into the
+     * onCreate method of every Android Activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +47,12 @@ public class MainActivity extends AppCompatActivity
         System.out.println("Hello on MainActivity on line 37");
     }
 
+    /**
+     * Handles processing the customization view and handles the creation of the order.
+     * @param stringPizzaRid the R id of the pizza
+     * @param pizzaType the type of pizza
+     * @param pictureRid the picture R id of the pizza
+     */
     public void openPizzaCustomizationActivity(int stringPizzaRid, String pizzaType, int pictureRid)
     {
 
@@ -84,10 +100,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode,
-                                    int resultCode,
-                                    Intent intent)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (resultCode == RESULT_OK) {
             MainActivity.currentOrder = (Order) intent.getSerializableExtra("ORDER");
@@ -95,17 +108,23 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void openStoreOrdersActivity(View view)
-    {
+    /**
+     * Opens the Store Order Window View.
+     * @param view the view of the android activity
+     *
+     */
+    public void openStoreOrdersActivity(View view) {
         Intent intent = new Intent(this, StoreOrderActivity.class);
         intent.putExtra("ORDER", MainActivity.currentOrder);
         intent.putExtra("STORE_ORDERS", MainActivity.storeOrders);
         startActivityForResult(intent, 1);//magic number
-
     }
 
-    public void openDeluxeCustomizePizzaActivity(View view)
-    {
+    /**
+     * Opens the Pizza Customization View to customize pizza for a Deluxe Pizza.
+     * @param view the view of the android activity
+     */
+    public void openDeluxeCustomizePizzaActivity(View view) {
 
         int name = R.string.DeluxePizza;
         String pizzaType = "Deluxe Pizza";
@@ -113,27 +132,33 @@ public class MainActivity extends AppCompatActivity
         openPizzaCustomizationActivity(name, pizzaType, picture);
     }
 
-    public void openHawaiianCustomizePizzaActivity(View view)
-    {
+    /**
+     * Opens the Pizza Customization View to customize pizza for a Hawaiian Pizza.
+     * @param view the view of the android activity
+     */
+    public void openHawaiianCustomizePizzaActivity(View view) {
         int name = R.string.HawaiianPizza;
         String pizzaType = "Hawaiian Pizza";
         int picture = R.drawable.hawaiianpizza;
         openPizzaCustomizationActivity(name, pizzaType, picture);
     }
 
-
-
-    public void openPepperoniCustomizePizzaActivity(View view)
-    {
+    /**
+     * Opens the Pizza Customization View to customize pizza for a Pepperoni Pizza.
+     * @param view the view of the android activity
+     */
+    public void openPepperoniCustomizePizzaActivity(View view) {
         int name = R.string.PepperoniPizza;
         String pizzaType = "Pepperoni Pizza";
         int picture = R.drawable.peppizza;
         openPizzaCustomizationActivity(name, pizzaType, picture);
     }
 
-
-    public void openCurrentOrdersActivity(View view)
-    {
+    /**
+     * Opens the Current Order Window View.
+     * @param view the view of the android activity
+     */
+    public void openCurrentOrdersActivity(View view) {
         if(this.currentOrder != null)
         {
             Intent intent = new Intent(this, CurrentOrderActivity.class);
@@ -147,12 +172,11 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    //redo titles in manifest and make them strings
-
-
-
-    private void errorDuplicatePhoneNumber()
-    {
+    /**
+     * Shows alert box when there is a phone number that already ordered
+     * tries to order again.
+     */
+    private void errorDuplicatePhoneNumber() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Error with Phone Number");
         alert.setMessage("Phone Number Has Already Ordered");
