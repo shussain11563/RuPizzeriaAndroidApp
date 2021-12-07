@@ -65,7 +65,6 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         String phoneNumber = "";
         if(spinnerPhoneNumber.getSelectedItem() != null)
         {
-            System.out.println(" NOT ERROR");
             phoneNumber = spinnerPhoneNumber.getSelectedItem().toString();
         }
 
@@ -76,17 +75,13 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         Order orderCopy = copy(this.storeOrders.find(phoneNumber));
         pizzaArrayAdapter = new ArrayAdapter<Pizza>(this, android.R.layout.simple_list_item_1, orderCopy.getPizzas());
         storeOrderListView.setAdapter(pizzaArrayAdapter);
-        System.out.println("Hello on line 51");
 
 
         //setPhoneNumber(phoneNumber);
 
-
-
         //disableEditText(this.priceStoreActivity);
 
     }
-
 
     @Override
     protected void onStop() {
@@ -138,7 +133,6 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     public void cancelOrder(View view)
     {
         String phoneNumber = (String) this.spinnerPhoneNumber.getSelectedItem();
-        System.out.println("Cancel Ordering Test " + phoneNumber);
 
         Order order = copy(storeOrders.find(phoneNumber));
         if(order!=null)
@@ -282,15 +276,14 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         {
             //Order order = this.storeOrders.find(phoneNumber);
             Order order = copy(this.storeOrders.find(phoneNumber));
-            System.out.println(phoneNumber + " : "+ order.getPizzas().size());
             this.pizzaArrayAdapter.clear();
             this.pizzaArrayAdapter.notifyDataSetChanged();
 
-            System.out.println(phoneNumber + " : "+ order.getPizzas().size());
+
             //this.pizzaArrayAdapter
             this.pizzaArrayAdapter.addAll(order.getPizzas());
             this.pizzaArrayAdapter.notifyDataSetChanged();
-            System.out.println(phoneNumber + " : "+ order.getPizzas().size());
+
 
             DecimalFormat df = new DecimalFormat("#,##0.00");
             priceStoreActivity.setText(df.format(order.getTotalPrice()));
@@ -326,7 +319,6 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
         String phoneNumber = (String) parent.getItemAtPosition(position);
-        System.out.println(phoneNumber + " " + storeOrders.find(phoneNumber).getPizzas().size() + " in onItemSelected()");
         setPhoneNumber(phoneNumber);
 
     }

@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity
         {
             phoneNumber.setText(currentOrder.getPhoneNumber());
         }
-        System.out.println("Hello on MainActivity on line 37");
     }
 
     /**
@@ -198,8 +197,8 @@ public class MainActivity extends AppCompatActivity
     private void errorInvalidPhoneNumberAlert()
     {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Error with Phone Number");
-        alert.setMessage("Phone Number Not Valid");
+        alert.setTitle(R.string.errorInvalidPhoneNumberAlertTitle);
+        alert.setMessage(R.string.errorInvalidPhoneNumberAlertMessage);
 
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -219,8 +218,8 @@ public class MainActivity extends AppCompatActivity
     private void errorNoCurrentOrderAlert()
     {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Error with Current Order");
-        alert.setMessage("There is no current order.");
+        alert.setTitle(R.string.errorNoCurrentOrderAlertTitle);
+        alert.setMessage(R.string.errorNoCurrentOrderAlertMessage);
 
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override

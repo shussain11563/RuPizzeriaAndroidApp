@@ -108,8 +108,6 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
             {
                 Topping topping = (Topping) availableToppingsView.getItemAtPosition(position);
                 addToppings(topping);
-                System.out.println(topping);
-
             }
         });
 
@@ -118,7 +116,6 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 Topping topping = (Topping) selectedToppingsView.getItemAtPosition(position);
-                System.out.println(topping);
                 removeToppings(topping);
                 //removeSelectedPizza((Pizza) orderListView.getItemAtPosition(position));
             }
@@ -169,31 +166,6 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         editText.setKeyListener(null);
         editText.setBackgroundColor(Color.TRANSPARENT);
     }
-
-
-
-
-
-    /*
-    public void spinnerControl()
-    {
-        spinner.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-
-                        Object item = parent.getItemAtPosition(pos);
-                        System.out.println("Hello");
-                        System.out.println(item.toString());     //prints the text in spinner item.
-
-                    }
-                    public void onNothingSelected(AdapterView<?> parent)
-                    {
-                    }
-                });
-    }
-
-     */
-
 
     /**
      * Sets the price of the pizza to the text area.
