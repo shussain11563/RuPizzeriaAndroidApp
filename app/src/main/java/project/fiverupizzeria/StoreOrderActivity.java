@@ -167,6 +167,10 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         {
             order = copy(this.storeOrders.find((String) this.spinnerPhoneNumber.getSelectedItem()));
         }
+        else
+        {
+            order = null;
+        }
 
 
         if(order != null) {
