@@ -53,10 +53,11 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customize_pizza_layout);
+        int defaultValue = 0;
         Intent intent = getIntent();
         this.currentOrder = (Order) intent.getSerializableExtra("ORDER");
         this.storeOrders = (StoreOrders) intent.getSerializableExtra("STORE_ORDERS");
-        int pizzaName = intent.getIntExtra("PIZZA_NAME", 0);
+        int pizzaName = intent.getIntExtra("PIZZA_NAME", defaultValue);
         this.pizzaFlavor = intent.getStringExtra("PIZZA_TYPE");
         int pizzaPictureRid = intent.getIntExtra("PIZZA_IMAGE", 0); //MAGIC NUMBER, MAKE NOT FOUND AND CHANE TO -1
 
@@ -380,6 +381,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         this.pizza = pizza;
         updateListView();
         setPrice();
+        int defaultValue = 0;
         spinner.setSelection(defaultValue); //remove magic number
         addToOrderAlertBox();
 
