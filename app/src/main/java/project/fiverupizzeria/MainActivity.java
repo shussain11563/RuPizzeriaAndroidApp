@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity
         {
             Intent intent = new Intent(this, CurrentOrderActivity.class);
             intent.putExtra("ORDER", MainActivity.currentOrder);
-            intent.putExtra("STORE_ORDERS", this.storeOrders);
+            intent.putExtra("STORE_ORDERS", MainActivity.storeOrders);
             startActivityForResult(intent, 1);
         }
         else {

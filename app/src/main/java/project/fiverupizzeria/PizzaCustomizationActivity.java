@@ -31,6 +31,14 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
     private ListView availableToppingsView;
     private ListView selectedToppingsView;
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Intent intent = new Intent();
+        intent.putExtra("ORDER", currentOrder);
+        intent.putExtra("STORE_ORDERS", this.storeOrders);
+        setResult(RESULT_OK, intent);
+    }
 
     //remove edittext and change to textview
     private EditText priceTextArea;
