@@ -52,7 +52,6 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -260,14 +259,33 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
     }
 
 
+    /**
+     * Method that alerts users that their pizza is added to their order.
+     */
+    public void addToOrderAlertBox() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.addToOrderAlertBoxTitle);
+        alert.setMessage(R.string.addToOrderAlertBoxMessage);
+
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+            }
+        });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
 
     /**
      * Shows alert box regarding removing an essential topping.
      */
     public void showConfirmationRemoveEssentialToppings(Topping topping) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Warning with Removing Toppings");
-        alert.setMessage("You are removing essential toppings");
+        alert.setTitle(R.string.showConfirmationRemoveEssentialToppingsTitle);
+        alert.setMessage(R.string.showConfirmationRemoveEssentialToppingsMessage);
 
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -290,8 +308,8 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
      */
     public void showConfirmationNoToppingsOnPizza() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Warning with Removing Toppings");
-        alert.setMessage("No Toppings on Pizza");
+        alert.setTitle(R.string.showConfirmationNoToppingsOnPizzaTitle);
+        alert.setMessage(R.string.showConfirmationNoToppingsOnPizzaMessage);
 
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -339,8 +357,8 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
      */
     public void showMaxToppingsOnPizza() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Warning with Adding Toppings");
-        alert.setMessage("You can only have at most 7 toppings");
+        alert.setTitle(R.string.showMaxToppingsOnPizzaTitle);
+        alert.setMessage(R.string.showMaxToppingsOnPizzaMessage);
 
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override

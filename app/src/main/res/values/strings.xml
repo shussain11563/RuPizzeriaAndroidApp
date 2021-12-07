@@ -30,10 +30,29 @@
 
     <string name="errorInvalidPhoneNumberAlertTitle">Error with Phone Number</string>
     <string name="errorInvalidPhoneNumberAlertMessage">Phone Number Not Valid</string>
+
+    <string name="confirmationForOrderToBePlaceAlertTitle">Warning with Placing Order</string>
+    <string name="confirmationForOrderToBePlaceAlertMessage">You are about to place an order</string>
+
     <string name="errorNoCurrentOrderAlertTitle">Error with Current Order</string>
-    <string name="errorNoCurrentOrderAlertMessage">There is no current order.</string>
+    <string name="errorNoCurrentOrderAlertMessage">No current order or there is no pizzas in the current order</string>
 
-    
+    <string name="showNoPizzasSelectedTitle">Warning with Removing Pizzas From Order</string>
+    <string name="showNoPizzasSelectedMessage">No pizzas selected!</string>
 
+    <string name="showNoPizzasInOrderTitle">Warning with Removing Pizzas From Order</string>
+    <string name="showNoPizzasInOrderMessage">There are no pizzas in the order!</string>
+
+    <string name="addToOrderAlertBoxTitle">Added to Order</string>
+    <string name="addToOrderAlertBoxMessage">Order has been added.</string>
+
+    <string name="showConfirmationRemoveEssentialToppingsTitle">Warning with Removing Toppings</string>
+    <string name="showConfirmationRemoveEssentialToppingsMessage">You are removing essential toppings</string>
+
+    <string name="showConfirmationNoToppingsOnPizzaTitle">Warning with Removing Toppings</string>
+    <string name="showConfirmationNoToppingsOnPizzaMessage">No Toppings on Pizza</string>
+
+    <string name="showMaxToppingsOnPizzaTitle">Warning with Adding Toppings</string>
+    <string name="showMaxToppingsOnPizzaMessage">You can only have at most 7 toppings</string>
 
 </resources>

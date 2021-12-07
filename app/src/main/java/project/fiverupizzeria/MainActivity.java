@@ -177,8 +177,8 @@ public class MainActivity extends AppCompatActivity
      */
     private void errorDuplicatePhoneNumber() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Error with Phone Number");
-        alert.setMessage("Phone Number Has Already Ordered");
+        alert.setTitle(R.string.errorDuplicatePhoneNumberTitle);
+        alert.setMessage(R.string.errorDuplicatePhoneNumberMessage);
 
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
