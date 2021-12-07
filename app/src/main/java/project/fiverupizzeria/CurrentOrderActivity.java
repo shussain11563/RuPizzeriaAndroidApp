@@ -174,7 +174,7 @@ public class CurrentOrderActivity extends AppCompatActivity
     }
 
     /**
-     * Prints the sales tax total into the text area.
+     * Sets the sales tax total into the text area.
      * @param salesTax the string representation of the sales tax of the order.
      */
     public void setSalesTaxTextArea(String salesTax) {
@@ -184,7 +184,7 @@ public class CurrentOrderActivity extends AppCompatActivity
     }
 
     /**
-     * Prints the order total into the text area.
+     * Sets the order total into the text area.
      * @param total the total price of the order.
      */
     public void setOrderTotalTextArea(String total) {
