@@ -83,8 +83,6 @@ public class CurrentOrderActivity extends AppCompatActivity
         disableEditText(orderTotalText);
         disableEditText(phoneNumberOrderActivity);
 
-        //this.currentOrder.getPizzas().clear();
-
         this.pizzaArrayAdapter.clear();
         this.pizzaArrayAdapter.notifyDataSetChanged();
         this.currentOrder = null; //???
@@ -93,10 +91,6 @@ public class CurrentOrderActivity extends AppCompatActivity
         intent.putExtra("STORE_ORDERS", this.storeOrders);
         intent.putExtra("ORDER", this.currentOrder);
         setResult(RESULT_OK, intent);
-
-        //this.pizzaArrayAdapter.clear();
-        //this.pizzaArrayAdapter.notifyDataSetChanged();
-        //this.currentOrder = null; //???
     }
 
     /**
@@ -210,8 +204,6 @@ public class CurrentOrderActivity extends AppCompatActivity
         this.subtotal = subtotal;
     }
 
-
-
     /**
      * Calls the Method to confirm the order
      * @param view the view of the android activity
@@ -220,14 +212,11 @@ public class CurrentOrderActivity extends AppCompatActivity
         showConfirmationForOrderToBePlaced();
     }
 
-
-
     /**
      * Method to add Current Order to Store Orders, calls a toast to
      * show adding and clears the Text Areas
      */
-    private void addToStoreOrder()
-    {
+    private void addToStoreOrder() {
 
         Order order = copy(this.currentOrder);
         this.storeOrders.addOrder(order);
@@ -235,7 +224,10 @@ public class CurrentOrderActivity extends AppCompatActivity
         clear();
     }
 
-
+    /**
+     * Method that copies an order
+     * @param copyThis order to be copied
+     */
     private Order copy(Order copyThis)
     {
         Order order = new Order(copyThis.getPhoneNumber());
@@ -248,11 +240,11 @@ public class CurrentOrderActivity extends AppCompatActivity
 
         return order;
     }
+
     /**
      * Alert box to show a confirmation when the order is to be placed
      */
-    public void showConfirmationForOrderToBePlaced()
-    {
+    public void showConfirmationForOrderToBePlaced() {
         if(this.currentOrder != null && this.currentOrder.getPizzas().size() > 0) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle(R.string.confirmationForOrderToBePlaceAlertTitle);
@@ -330,8 +322,7 @@ public class CurrentOrderActivity extends AppCompatActivity
      * Method that removes the selected pizza and recalculates costs and prices.
      * @param pizza the pizza object to be removed
      */
-    private void removeSelectedPizza(Pizza pizza)
-    {
+    private void removeSelectedPizza(Pizza pizza) {
         if(pizza != null) {
             if(orderListView.getAdapter().getCount() > 0) {
                 callRemovePizza(pizza);
@@ -346,8 +337,6 @@ public class CurrentOrderActivity extends AppCompatActivity
             showNoPizzasSelected();
         }
     }
-
-
 
     /**
      * Shows toast box when order has been placed

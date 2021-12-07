@@ -1,6 +1,5 @@
 package project.fiverupizzeria;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
@@ -9,8 +8,6 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-
-import java.util.ArrayList;
 
 /**
  * RuPizzeriaController is a class that handles all the events driven by the I/O in the application.
@@ -36,7 +33,9 @@ public class MainActivity extends AppCompatActivity
         storeOrders = new StoreOrders();
     }
 
-    //test this
+    /**
+     * When activity is resumed
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -52,26 +51,21 @@ public class MainActivity extends AppCompatActivity
      * @param pizzaType the type of pizza
      * @param pictureRid the picture R id of the pizza
      */
-    public void openPizzaCustomizationActivity(int stringPizzaRid, String pizzaType, int pictureRid)
-    {
-
+    public void openPizzaCustomizationActivity(int stringPizzaRid, String pizzaType, int pictureRid) {
         String phoneNumber = this.phoneNumber.getText().toString().trim();
 
         if(this.storeOrders.find(phoneNumber)!=null) {
-            errorDuplicatePhoneNumber();  //change this
+            errorDuplicatePhoneNumber();
             return;
         }
         boolean isValid = checkPhoneNumber(phoneNumber);
         boolean isSameNumber = this.currentOrder != null && (this.currentOrder.getPhoneNumber().equals(phoneNumber));
 
-        if((isValid && this.currentOrder == null) || (isValid == true && isSameNumber == false))
-        {
+        if((isValid && this.currentOrder == null) || (isValid == true && isSameNumber == false)) {
             this.currentOrder = new Order(phoneNumber);
         }
 
-
-        if(checkPhoneNumber(phoneNumber))
-        {
+        if(checkPhoneNumber(phoneNumber)) {
             Intent intent = new Intent(this, PizzaCustomizationActivity.class);
 
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -98,6 +92,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Starts the activity and returns a value when calls
+     * @param requestCode code to be requested
+     * @param resultCode code to be resulted and returned
+     * @param intent passing objects to other activities
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity
     /**
      * Opens the Store Order Window View.
      * @param view the view of the android activity
-     *
      */
     public void openStoreOrdersActivity(View view) {
         Intent intent = new Intent(this, StoreOrderActivity.class);
@@ -158,8 +157,7 @@ public class MainActivity extends AppCompatActivity
      * @param view the view of the android activity
      */
     public void openCurrentOrdersActivity(View view) {
-        if(this.currentOrder != null)
-        {
+        if(this.currentOrder != null) {
             Intent intent = new Intent(this, CurrentOrderActivity.class);
             intent.putExtra("ORDER", MainActivity.currentOrder);
             intent.putExtra("STORE_ORDERS", MainActivity.storeOrders);
@@ -194,8 +192,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * Shows alert box when there is a phone number that is invalid.
      */
-    private void errorInvalidPhoneNumberAlert()
-    {
+    private void errorInvalidPhoneNumberAlert() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(R.string.errorInvalidPhoneNumberAlertTitle);
         alert.setMessage(R.string.errorInvalidPhoneNumberAlertMessage);
@@ -203,7 +200,6 @@ public class MainActivity extends AppCompatActivity
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
             }
         });
 
@@ -215,8 +211,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * Displays alert box when manipulating an order that does not exist.
      */
-    private void errorNoCurrentOrderAlert()
-    {
+    private void errorNoCurrentOrderAlert() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(R.string.errorNoCurrentOrderAlertTitle);
         alert.setMessage(R.string.errorNoCurrentOrderAlertMessage);
@@ -224,7 +219,6 @@ public class MainActivity extends AppCompatActivity
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
             }
         });
 
@@ -237,17 +231,13 @@ public class MainActivity extends AppCompatActivity
      * @param text the phone number from the total text area.
      * @return true if a phone number is valid, false otherwise.
      */
-    private static boolean checkPhoneNumber(String text)
-    {
+    private static boolean checkPhoneNumber(String text) {
         int maxDigitsOfNumber = 10;
         if(text.length() != maxDigitsOfNumber)
             return false;
 
-        //make the 10 a static final constant
-        for(int i = 0; i < text.length(); i++)
-        {
-            if(!Character.isDigit(text.charAt(i)))
-            {
+        for(int i = 0; i < text.length(); i++) {
+            if(!Character.isDigit(text.charAt(i))) {
                 return false;
             }
         }

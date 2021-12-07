@@ -3,17 +3,21 @@ package project.fiverupizzeria;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
-import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * RuPizzaStoreOrderController is a class that handles all the events driven by the I/O in the application
@@ -49,40 +53,24 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         this.storeOrders = (StoreOrders) intent.getSerializableExtra("STORE_ORDERS");
         this.currentOrderTemp = (Order) intent.getSerializableExtra("ORDER");
         spinnerPhoneNumber = findViewById(R.id.spinnerPhoneNumber);
-
-
-        //populatePhoneNumber(); //make no default
-
-        //Order
-
-        //String phoneNumber
         spinnerArrayAdapterPhoneNumber = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, phoneNumbers());
         spinnerPhoneNumber.setAdapter(spinnerArrayAdapterPhoneNumber);
         spinnerPhoneNumber.setOnItemSelectedListener(this);
 
-
         String phoneNumber = "";
-        if(spinnerPhoneNumber.getSelectedItem() != null)
-        {
+        if(spinnerPhoneNumber.getSelectedItem() != null) {
             phoneNumber = spinnerPhoneNumber.getSelectedItem().toString();
         }
-
-        //CHECK IF NOT NULL
-
-        System.out.println(this.storeOrders.find(phoneNumber).getPizzas().size());
 
         Order orderCopy = copy(this.storeOrders.find(phoneNumber));
         pizzaArrayAdapter = new ArrayAdapter<Pizza>(this, android.R.layout.simple_list_item_1, orderCopy.getPizzas());
         storeOrderListView.setAdapter(pizzaArrayAdapter);
-
-
-        //setPhoneNumber(phoneNumber);
-
-        //disableEditText(this.priceStoreActivity);
-
     }
 
+    /**
+     * Method that runs when the activity stops
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -92,16 +80,10 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         setResult(RESULT_OK, intent);
     }
 
-
-
-
-
     /**
      * Populates the spinners with Phone Numbers
      */
-
-    private void populatePhoneNumber()
-    {
+    private void populatePhoneNumber() {
         ArrayList<String> phoneNumbers = phoneNumbers();
 
         this.spinnerArrayAdapterPhoneNumber.clear();
@@ -109,42 +91,35 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
 
     }
 
-    private ArrayList<String> phoneNumbers()
-    {
+    /**
+     * Method that returns the phone numbers in the store orders
+     */
+    private ArrayList<String> phoneNumbers() {
         ArrayList<String> phoneNumbers = new ArrayList<String>();
         ArrayList<Order> orders = this.storeOrders.getOrders();
-        for(int i = 0; i < orders.size(); i++)
-        {
+        for(int i = 0; i < orders.size(); i++) {
             phoneNumbers.add(orders.get(i).getPhoneNumber());
         }
 
         return phoneNumbers;
     }
 
-
-
-
-
-
     /**
      * Method that cancels the order
      * @param view the view of the android activity
      */
-    public void cancelOrder(View view)
-    {
+    public void cancelOrder(View view) {
         String phoneNumber = (String) this.spinnerPhoneNumber.getSelectedItem();
 
         Order order = copy(storeOrders.find(phoneNumber));
-        if(order!=null)
-        {
+        if(order!=null) {
             storeOrders.removeOrder(storeOrders.find(phoneNumber));
             Intent intent = new Intent();
             intent.putExtra("ORDER", currentOrder);
             intent.putExtra("STORE_ORDERS", this.storeOrders);
             setResult(RESULT_OK, intent);
         }
-        else
-        {
+        else {
             errorCannotCancelOrder();
         }
 
@@ -153,50 +128,19 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         populatePhoneNumber();
         this.pizzaArrayAdapter.clear();
         this.pizzaArrayAdapter.notifyDataSetChanged();
+        if(this.spinnerPhoneNumber.getSelectedItem() != null)
+            order = copy(this.storeOrders.find((String) this.spinnerPhoneNumber.getSelectedItem()));
 
-        order = copy(this.storeOrders.find((String) this.spinnerPhoneNumber.getSelectedItem()));
-        if(order != null)
-        {
+        if(order != null) {
             this.pizzaArrayAdapter.addAll(order.getPizzas());
             this.pizzaArrayAdapter.notifyDataSetChanged();
         }
 
-        //this.storeOrderListView.
-        //this.storeOrderListView.getItems().clear();
-
-
-
         this.priceStoreActivity.getText().clear();
         disableEditText(this.priceStoreActivity);
-
-
-        //update
-
-        //set new thing
-    }
-/*
-    public void setPhoneNumber(String phoneNum)
-    {
-        this.storeOrderListView.getItems().clear();
-        String phoneNumber = phoneNum;
-        if(phoneNumber != null)
-        {
-            Order order = this.storeOrders.find(phoneNumber);
-            this.storeOrderListView.getItems().clear();
-
-
-
-            ObservableList<Pizza> pizzasList = FXCollections.observableArrayList(order.getPizzas());
-            this.storeOrderListView.setItems(FXCollections.observableList(pizzasList));
-
-            DecimalFormat df = new DecimalFormat("#,##0.00");
-            orderTotalTextArea.setText(df.format(order.getTotalPrice()));
-
-        }
-        //update after removing order
+        showOrderIsCancelledToast();
     }
 
- */
     /**
      * Disables the text to be edited
      * @param editText text to be edited
@@ -240,9 +184,11 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         toast.show();
     }
 
-
-    private Order copy(Order copyThis)
-    {
+    /**
+     * Method that copies an order
+     * @param copyThis order to be copied
+     */
+    private Order copy(Order copyThis) {
         if(copyThis == null)
         {
             return null;
@@ -258,18 +204,11 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         return order;
     }
 
-
     /**
      * Sets the phone number
      * @param phoneNum string of the phone number
      */
-
-    private void setPhoneNumber(String phoneNum)
-    {
-
-        //this.pizzaArrayAdapter.clear();
-        //this.pizzaArrayAdapter.notifyDataSetChanged();
-
+    private void setPhoneNumber(String phoneNum) {
         String phoneNumber = phoneNum;
 
         if(phoneNumber != null)
@@ -289,17 +228,7 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
             priceStoreActivity.setText(df.format(order.getTotalPrice()));
 
         }
-        //update after removing order
     }
-
-    private void reloadList()
-    {
-        //pizzaArrayAdapter.
-
-    }
-
-
-
 
     /**
      * <p>Callback method to be invoked when an item in this view has been
@@ -316,11 +245,9 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
      * @param id       The row id of the item that is selected
      */
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-    {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String phoneNumber = (String) parent.getItemAtPosition(position);
         setPhoneNumber(phoneNumber);
-
     }
 
     /**
@@ -332,6 +259,5 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
      */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }
