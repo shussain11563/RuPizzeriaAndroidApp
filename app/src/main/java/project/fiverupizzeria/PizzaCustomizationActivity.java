@@ -381,7 +381,6 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         this.pizza = pizza;
         updateListView();
         setPrice();
-        int defaultValue = 0;
         spinner.setSelection(defaultValue); //remove magic number
         addToOrderAlertBox();
 
