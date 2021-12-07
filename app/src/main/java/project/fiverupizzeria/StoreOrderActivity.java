@@ -13,7 +13,7 @@ import android.os.Bundle;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 /**
  * RuPizzaStoreOrderController is a class that handles all the events driven by the I/O in the application
@@ -67,10 +67,6 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         {
             phoneNumber = spinnerPhoneNumber.getSelectedItem().toString();
         }
-
-        //CHECK IF NOT NULL
-
-        System.out.println(this.storeOrders.find(phoneNumber).getPizzas().size());
 
         Order orderCopy = copy(this.storeOrders.find(phoneNumber));
         pizzaArrayAdapter = new ArrayAdapter<Pizza>(this, android.R.layout.simple_list_item_1, orderCopy.getPizzas());
