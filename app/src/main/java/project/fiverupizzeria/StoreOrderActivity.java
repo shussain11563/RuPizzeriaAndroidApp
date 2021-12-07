@@ -67,8 +67,7 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         }
 
         Order orderCopy = copy(this.storeOrders.find(phoneNumber));
-        if(orderCopy != null)
-        {
+        if(orderCopy != null) {
             pizzaArrayAdapter = new ArrayAdapter<Pizza>(this, android.R.layout.simple_list_item_1, orderCopy.getPizzas());
 
         }
@@ -76,7 +75,6 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         storeOrderListView.setAdapter(pizzaArrayAdapter);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     @Override
@@ -156,19 +154,16 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         this.spinnerArrayAdapterPhoneNumber.remove(phoneNumber); //removes from spinner
 
         populatePhoneNumber();
-        if(pizzaArrayAdapter == null)
-        {
+        if(pizzaArrayAdapter == null) {
             showCannotCancelToast();
             return;
         }
         this.pizzaArrayAdapter.clear();
         this.pizzaArrayAdapter.notifyDataSetChanged();
-        if(this.spinnerPhoneNumber.getSelectedItem() != null)
-        {
+        if(this.spinnerPhoneNumber.getSelectedItem() != null) {
             order = copy(this.storeOrders.find((String) this.spinnerPhoneNumber.getSelectedItem()));
         }
-        else
-        {
+        else {
             order = null;
         }
 
@@ -177,12 +172,10 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
             this.pizzaArrayAdapter.addAll(order.getPizzas());
             this.pizzaArrayAdapter.notifyDataSetChanged();
         }
-        else
-        {
+        else {
             this.pizzaArrayAdapter.clear();
             this.pizzaArrayAdapter.notifyDataSetChanged();
         }
-
 
         this.priceStoreActivity.getText().clear();
         disableEditText(this.priceStoreActivity);
