@@ -57,4 +57,9 @@
 
     <string name="errorCannotCancelOrderTitle">Error with Cancelling Order</string>
     <string name="errorCannotCancelOrderMessage">No Order Selected to Cancel</string>
+
+    <string name="customizeYourPizzaLabel">Customize Your Pizza</string>
+    <string name="currentOrderLabel">Current Order</string>
+    <string name="storeOrdersLabel">Store Orders</string>
+
 </resources>

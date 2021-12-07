@@ -20,19 +20,19 @@
 
         <activity android:name=".PizzaCustomizationActivity"
                   android:exported="true"
-                    android:label="Customize Your Pizza"
+                    android:label="@string/customizeYourPizzaLabel"
                   android:parentActivityName=".MainActivity">
         </activity>
 
         <activity android:name=".CurrentOrderActivity"
                   android:exported="true"
-                  android:label="Current Order"
+                  android:label="@string/currentOrderLabel"
                   android:parentActivityName=".MainActivity">
         </activity>
 
         <activity android:name=".StoreOrderActivity"
                   android:exported="true"
-                  android:label="Store Orders"
+                  android:label="@string/storeOrdersLabel"
                   android:parentActivityName=".MainActivity">
         </activity>
 
