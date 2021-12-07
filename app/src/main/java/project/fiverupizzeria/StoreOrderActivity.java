@@ -206,8 +206,8 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
      */
     private void errorCannotCancelOrder() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Error with Cancelling Order");
-        alert.setMessage("No Order Selected to Cancel");
+        alert.setTitle(R.string.errorCannotCancelOrderTitle);
+        alert.setMessage(R.string.errorCannotCancelOrderMessage);
 
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override

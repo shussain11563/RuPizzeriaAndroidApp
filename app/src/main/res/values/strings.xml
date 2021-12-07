@@ -55,4 +55,11 @@
     <string name="showMaxToppingsOnPizzaTitle">Warning with Adding Toppings</string>
     <string name="showMaxToppingsOnPizzaMessage">You can only have at most 7 toppings</string>
 
+    <string name="errorCannotCancelOrderTitle">Error with Cancelling Order</string>
+    <string name="errorCannotCancelOrderMessage">No Order Selected to Cancel</string>
+
+    <string name="customizeYourPizzaLabel">Customize Your Pizza</string>
+    <string name="currentOrderLabel">Current Order</string>
+    <string name="storeOrdersLabel">Store Orders</string>
+
 </resources>
