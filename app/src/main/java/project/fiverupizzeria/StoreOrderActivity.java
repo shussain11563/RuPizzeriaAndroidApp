@@ -2,6 +2,8 @@ package project.fiverupizzeria;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,6 +75,23 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
 
         storeOrderListView.setAdapter(pizzaArrayAdapter);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 
     /**
