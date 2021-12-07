@@ -65,8 +65,14 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         }
 
         Order orderCopy = copy(this.storeOrders.find(phoneNumber));
-        pizzaArrayAdapter = new ArrayAdapter<Pizza>(this, android.R.layout.simple_list_item_1, orderCopy.getPizzas());
+        if(orderCopy != null)
+        {
+            pizzaArrayAdapter = new ArrayAdapter<Pizza>(this, android.R.layout.simple_list_item_1, orderCopy.getPizzas());
+
+        }
+
         storeOrderListView.setAdapter(pizzaArrayAdapter);
+
     }
 
     /**
@@ -127,15 +133,34 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
         this.spinnerArrayAdapterPhoneNumber.remove(phoneNumber); //removes from spinner
 
         populatePhoneNumber();
+        if(pizzaArrayAdapter == null)
+        {
+            showCannotCancelToast();
+            return;
+        }
         this.pizzaArrayAdapter.clear();
         this.pizzaArrayAdapter.notifyDataSetChanged();
         if(this.spinnerPhoneNumber.getSelectedItem() != null)
+        {
             order = copy(this.storeOrders.find((String) this.spinnerPhoneNumber.getSelectedItem()));
+        }
+        else
+        {
+            order = null;
+        }
+
+
 
         if(order != null) {
             this.pizzaArrayAdapter.addAll(order.getPizzas());
             this.pizzaArrayAdapter.notifyDataSetChanged();
         }
+        else
+        {
+            this.pizzaArrayAdapter.clear();
+            this.pizzaArrayAdapter.notifyDataSetChanged();
+        }
+
 
         this.priceStoreActivity.getText().clear();
         disableEditText(this.priceStoreActivity);
@@ -179,6 +204,18 @@ public class StoreOrderActivity extends AppCompatActivity implements AdapterView
     public void showOrderIsCancelledToast() {
         Context context = getApplicationContext();
         CharSequence text = "Order is Cancelled";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+
+    /**
+     * Shows toast box when order has been cancelled
+     */
+    public void showCannotCancelToast() {
+        Context context = getApplicationContext();
+        CharSequence text = "Cannot Cancel Order";
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
