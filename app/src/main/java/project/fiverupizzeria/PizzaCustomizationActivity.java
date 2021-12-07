@@ -219,7 +219,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         alert.setTitle("Added to Order");
         alert.setMessage("Order has been added.");
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
@@ -256,14 +256,14 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         alert.setTitle(R.string.showConfirmationRemoveEssentialToppingsTitle);
         alert.setMessage(R.string.showConfirmationRemoveEssentialToppingsMessage);
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 callRemoveToppings(topping);
             }
         });
 
-        alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -280,7 +280,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         alert.setTitle(R.string.showConfirmationNoToppingsOnPizzaTitle);
         alert.setMessage(R.string.showConfirmationNoToppingsOnPizzaMessage);
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -326,7 +326,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         alert.setTitle(R.string.showMaxToppingsOnPizzaTitle);
         alert.setMessage(R.string.showMaxToppingsOnPizzaMessage);
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -340,10 +340,9 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
      */
     public void showAddedToOrderToast() {
         Context context = getApplicationContext();
-        CharSequence text = "Added Pizza to Order";
         int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast.makeText(context, text, duration);
+        Toast toast = Toast.makeText(context, R.string.showAddedToOrderToast, duration);
         toast.show();
     }
 
@@ -368,6 +367,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
      */
     public void addOrder(View view)
     {
+        int defaultValue = 0;
         this.currentOrder.addPizza(this.pizza);
 
         showAddedToOrderToast();
@@ -380,7 +380,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity implements OnI
         this.pizza = pizza;
         updateListView();
         setPrice();
-        spinner.setSelection(0); //remove magic number
+        spinner.setSelection(defaultValue); //remove magic number
         addToOrderAlertBox();
 
     }

@@ -62,4 +62,11 @@
     <string name="currentOrderLabel">Current Order</string>
     <string name="storeOrdersLabel">Store Orders</string>
 
+    <string name="showOrderIsCancelledToast">Order is Cancelled</string>
+    <string name="showCannotCancelToast">Cannot Cancel Order</string>
+    <string name="showOrderIsPlacedToast">Order is Placed</string>
+    <string name="showAddedToOrderToast">Added Pizza to Order</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+
 </resources>

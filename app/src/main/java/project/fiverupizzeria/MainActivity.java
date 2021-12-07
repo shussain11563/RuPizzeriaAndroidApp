@@ -69,10 +69,10 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, PizzaCustomizationActivity.class);
 
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setTitle("Confirmation");
-            alert.setMessage("Click to Continue with Order");
+            alert.setTitle(R.string.confirmation);
+            alert.setMessage(R.string.ClickToContinueOrder);
 
-            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity
         alert.setTitle(R.string.errorDuplicatePhoneNumberTitle);
         alert.setMessage(R.string.errorDuplicatePhoneNumberMessage);
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity
         alert.setTitle(R.string.errorInvalidPhoneNumberAlertTitle);
         alert.setMessage(R.string.errorInvalidPhoneNumberAlertMessage);
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity
         alert.setTitle(R.string.errorNoCurrentOrderAlertTitle);
         alert.setMessage(R.string.errorNoCurrentOrderAlertMessage);
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
