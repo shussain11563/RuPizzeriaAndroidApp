@@ -18,6 +18,11 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * RuPizzaCustomizeController is a class that handles all the events driven by the I/O in the application
+ * involving Pizza Customization such as adding or removing toppings.
+ * @author Sharia Hussain, David Lam
+ */
 
 public class PizzaCustomizationActivity extends AppCompatActivity implements OnItemSelectedListener
 {
