@@ -69,4 +69,12 @@
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
 
+    <string name="deluxePizza">Deluxe Pizza</string>
+    <string name="hawaiianPizza">Hawaiian Pizza</string>
+    <string name="pepperoniPizza">Pepperoni Pizza</string>
+    <string name="currentOrders">Current Orders</string>
+    <string name="manageStoreOrders">Manage Store Orders</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="zero">0.00</string>
+
 </resources>
